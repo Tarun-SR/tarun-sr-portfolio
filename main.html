@@ -1262,6 +1262,171 @@
             color: #94A3B8;
         }
 
+        /* =============================
+           ROUND 1 ENHANCEMENTS
+        ============================= */
+
+        /* 1. SCROLL PROGRESS BAR */
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            z-index: 99999;
+            transition: width 0.1s linear;
+            border-radius: 0 3px 3px 0;
+            box-shadow: 0 0 10px rgba(0, 245, 255, 0.6);
+        }
+
+        /* 2. ACTIVE NAV LINK */
+
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* 3. HAMBURGER MENU */
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 6px;
+            z-index: 1100;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 4px;
+            transition: transform 0.35s ease, opacity 0.3s ease, background 0.3s;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+            background: var(--primary);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+            background: var(--primary);
+        }
+
+        /* MOBILE MENU DRAWER */
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 8, 22, 0.97);
+            backdrop-filter: blur(20px);
+            z-index: 1050;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 36px;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+            pointer-events: none;
+        }
+
+        .mobile-menu.open {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .mobile-menu a {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s, transform 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .mobile-menu.open a {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-menu.open a:nth-child(1) { transition-delay: 0.05s; }
+        .mobile-menu.open a:nth-child(2) { transition-delay: 0.10s; }
+        .mobile-menu.open a:nth-child(3) { transition-delay: 0.15s; }
+        .mobile-menu.open a:nth-child(4) { transition-delay: 0.20s; }
+        .mobile-menu.open a:nth-child(5) { transition-delay: 0.25s; }
+        .mobile-menu.open a:nth-child(6) { transition-delay: 0.30s; }
+
+        .mobile-menu a:hover {
+            color: var(--primary);
+            transform: scale(1.08);
+        }
+
+        .mobile-menu a.active {
+            color: var(--primary);
+        }
+
+        /* 4. BACK TO TOP BUTTON */
+
+        .back-to-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: #000;
+            box-shadow: 0 4px 20px rgba(0, 245, 255, 0.4);
+            z-index: 9998;
+            opacity: 0;
+            transform: translateY(20px) scale(0.8);
+            transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: none;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-4px) scale(1.1);
+            box-shadow: 0 8px 28px rgba(0, 245, 255, 0.55);
+        }
+
+        /* SHOW HAMBURGER ON MOBILE */
+
+        @media(max-width: 900px) {
+            .hamburger { display: flex; }
+        }
+
         /* RESPONSIVE */
 
         @media(max-width:900px) {
@@ -1390,6 +1555,19 @@
 
 <body>
 
+    <!-- SCROLL PROGRESS BAR -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- MOBILE MENU DRAWER -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#about"          onclick="closeMobileMenu()">About</a>
+        <a href="#skills"         onclick="closeMobileMenu()">Skills</a>
+        <a href="#experience"     onclick="closeMobileMenu()">Experience</a>
+        <a href="#projects"       onclick="closeMobileMenu()">Projects</a>
+        <a href="#certifications" onclick="closeMobileMenu()">Certifications</a>
+        <a href="#contact"        onclick="closeMobileMenu()">Contact</a>
+    </div>
+
     <!-- NAVBAR -->
 
     <nav>
@@ -1403,6 +1581,13 @@
             <a href="#projects">Projects</a>
             <a href="#certifications">Certifications</a>
             <a href="#contact">Contact</a>
+        </div>
+
+        <!-- HAMBURGER -->
+        <div class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
 
     </nav>
@@ -1525,22 +1710,22 @@
         <div class="stats">
 
             <div class="glass stat-card">
-                <h3>1.8+</h3>
+                <h3 class="stat-number" data-target="1" data-suffix=".8+">0</h3>
                 <p>Years Experience</p>
             </div>
 
             <div class="glass stat-card">
-                <h3>20+</h3>
+                <h3 class="stat-number" data-target="20" data-suffix="+">0+</h3>
                 <p>Automation Modules</p>
             </div>
 
             <div class="glass stat-card">
-                <h3>60%</h3>
+                <h3 class="stat-number" data-target="60" data-suffix="%">0%</h3>
                 <p>Regression Optimization</p>
             </div>
 
             <div class="glass stat-card">
-                <h3>100+</h3>
+                <h3 class="stat-number" data-target="100" data-suffix="+">0+</h3>
                 <p>Test Cases Automated</p>
             </div>
 
@@ -1986,6 +2171,11 @@
 
     </section>
 
+    <!-- BACK TO TOP -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <i class='bx bx-chevron-up'></i>
+    </button>
+
     <!-- FUNNY TOAST -->
     <div class="connect-toast" id="connectToast">
         <span class="toast-emoji" id="toastEmoji">🎉</span>
@@ -2243,7 +2433,110 @@ ${message}`;
 
     <script>
 
-        // CONTACT HANDLER — funny toast + navigate
+        // ================================
+        // ROUND 1 — ALL ENHANCEMENTS
+        // ================================
+
+        // 1. SCROLL PROGRESS BAR
+
+        const scrollBar = document.getElementById('scrollProgress');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop    = window.scrollY;
+            const docHeight    = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled     = (scrollTop / docHeight) * 100;
+            scrollBar.style.width = scrolled + '%';
+        }, { passive: true });
+
+        // 2. ACTIVE NAV HIGHLIGHT
+
+        const navLinks       = document.querySelectorAll('.nav-links a, .mobile-menu a');
+        const sections       = document.querySelectorAll('section[id]');
+
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + entry.target.id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.4 });
+
+        sections.forEach(s => navObserver.observe(s));
+
+        // 3. HAMBURGER MENU
+
+        function toggleMobileMenu() {
+            const menu  = document.getElementById('mobileMenu');
+            const burger = document.getElementById('hamburger');
+            menu.classList.toggle('open');
+            burger.classList.toggle('open');
+            document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+        }
+
+        function closeMobileMenu() {
+            document.getElementById('mobileMenu').classList.remove('open');
+            document.getElementById('hamburger').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        // 4. STATS COUNTER ANIMATION
+
+        function animateCounter(el) {
+            const target  = parseInt(el.getAttribute('data-target'));
+            const suffix  = el.getAttribute('data-suffix') || '';
+            const duration = 1800;
+            const step    = 16;
+            const steps   = Math.ceil(duration / step);
+            let current   = 0;
+
+            const timer = setInterval(() => {
+                current++;
+                const value = Math.round((current / steps) * target);
+                el.textContent = value + suffix;
+                if (current >= steps) {
+                    el.textContent = target + suffix;
+                    clearInterval(timer);
+                }
+            }, step);
+        }
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.querySelectorAll('.stat-number').forEach(el => {
+                        animateCounter(el);
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.4 });
+
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) statsSection.parentElement && statsObserver.observe(statsSection.parentElement);
+
+        // Observe stats grid directly
+        document.querySelectorAll('.stats').forEach(el => statsObserver.observe(el));
+
+        // 5. BACK TO TOP BUTTON
+
+        const backToTopBtn = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        }, { passive: true });
+
+    </script>
+
+    <script>
 
         let toastTimer = null;
 
