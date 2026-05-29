@@ -1,0 +1,2294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Tarun S R | SDET Portfolio</title>
+
+    <!-- GOOGLE FONT -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- BOX ICONS -->
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- AOS -->
+
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --bg: #050816;
+            --card: rgba(255, 255, 255, 0.06);
+            --border: rgba(255, 255, 255, 0.08);
+            --primary: #00F5FF;
+            --secondary: #A855F7;
+            --text: #ffffff;
+            --muted: #94A3B8;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: var(--primary);
+            filter: blur(200px);
+            opacity: 0.10;
+            top: -200px;
+            left: -200px;
+            z-index: -1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: var(--secondary);
+            filter: blur(220px);
+            opacity: 0.10;
+            bottom: -250px;
+            right: -200px;
+            z-index: -1;
+        }
+
+        section {
+            padding: 110px 10%;
+        }
+
+        h2 {
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 70px;
+            font-weight: 700;
+        }
+
+        p {
+            line-height: 1.8;
+            color: var(--muted);
+        }
+
+        /* SCROLLBAR */
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--primary), var(--secondary));
+            border-radius: 10px;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 10%;
+            backdrop-filter: blur(16px);
+            background: rgba(0, 0, 0, 0.35);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            transition: 0.3s;
+            font-size: 15px;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            left: 0;
+            bottom: -6px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* HERO */
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            z-index: 10;
+        }
+
+        .hero h1 {
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            white-space: nowrap;
+        }
+
+        .gradient {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+
+            background-clip: text;
+            -webkit-background-clip: text;
+
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+
+            display: inline-block;
+        }
+
+        .hero h3 {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 25px;
+
+            min-height: 60px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            white-space: nowrap;
+        }
+
+        .hero p {
+            max-width: 760px;
+            margin: auto;
+            font-size: 18px;
+        }
+
+        .hero-buttons {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 36px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.4s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .primary-btn {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: black;
+            box-shadow: 0 0 25px rgba(0, 245, 255, 0.4);
+        }
+
+        .secondary-btn {
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn:hover {
+            transform: translateY(-6px) scale(1.02);
+        }
+
+        /* GLASS CARD */
+
+        .glass {
+            background: var(--card);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(18px);
+            border-radius: 24px;
+            transition: 0.4s;
+        }
+
+        .glass:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 245, 255, 0.3);
+            box-shadow: 0 0 35px rgba(0, 245, 255, 0.15);
+        }
+
+        /* ABOUT */
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .about-card {
+            padding: 40px;
+            height: 100%;
+        }
+
+        .about-card i {
+            font-size: 50px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .about-card h3 {
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        /* ABOUT CARD — CLICK TO POP OUT */
+
+        .about-flip-card {
+            height: 320px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .about-flip-inner {
+            width: 100%;
+            height: 100%;
+        }
+
+        .about-front {
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .about-flip-card:hover .about-front {
+            transform: translateY(-6px);
+        }
+
+        /* POPUP OVERLAY */
+
+        .popup-overlay {
+            display: flex;
+            visibility: hidden;
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.0);
+            backdrop-filter: blur(0px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition:
+                background 0.35s ease,
+                backdrop-filter 0.35s ease,
+                visibility 0s linear 0.4s;
+        }
+
+        .popup-overlay.active {
+            visibility: visible;
+            pointer-events: all;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(8px);
+            transition:
+                background 0.35s ease,
+                backdrop-filter 0.35s ease,
+                visibility 0s linear 0s;
+        }
+
+        /* MINI POPUP WINDOW */
+
+        .popup-window {
+            background: linear-gradient(145deg, #0d1b2e, #0a1628);
+            border: 1px solid rgba(0, 245, 255, 0.35);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 560px;
+            max-height: 80vh;
+            box-shadow:
+                0 0 0 1px rgba(0,245,255,0.08),
+                0 0 60px rgba(0, 245, 255, 0.15),
+                0 40px 100px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: scale(0.75) translateY(40px);
+            opacity: 0;
+            transition:
+                transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                opacity 0.3s ease;
+        }
+
+        .popup-overlay.active .popup-window {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        .popup-overlay.closing .popup-window {
+            transform: scale(0.85) translateY(24px);
+            opacity: 0;
+            transition:
+                transform 0.28s cubic-bezier(0.4, 0, 1, 1),
+                opacity 0.22s ease;
+        }
+
+        .popup-overlay.closing {
+            background: rgba(0, 0, 0, 0.0);
+            backdrop-filter: blur(0px);
+            transition:
+                background 0.28s ease,
+                backdrop-filter 0.28s ease;
+        }
+
+        /* GLOW PULSE ON OPEN */
+
+        @keyframes glowPulse {
+            0%   { box-shadow: 0 0 0 1px rgba(0,245,255,0.08), 0 0 20px rgba(0,245,255,0.1),  0 40px 100px rgba(0,0,0,0.6); }
+            50%  { box-shadow: 0 0 0 1px rgba(0,245,255,0.25), 0 0 60px rgba(0,245,255,0.28), 0 40px 100px rgba(0,0,0,0.6); }
+            100% { box-shadow: 0 0 0 1px rgba(0,245,255,0.08), 0 0 35px rgba(0,245,255,0.15), 0 40px 100px rgba(0,0,0,0.6); }
+        }
+
+        .popup-overlay.active .popup-window {
+            animation: glowPulse 1.2s ease 0.35s 1;
+        }
+
+        /* POPUP HEADER */
+
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 28px 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            flex-shrink: 0;
+        }
+
+        .popup-header h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .popup-close {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+            line-height: 1;
+        }
+
+        .popup-close:hover {
+            background: rgba(0, 245, 255, 0.15);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* POPUP SCROLLABLE BODY */
+
+        .popup-body {
+            padding: 24px 28px 28px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .popup-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .popup-body::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--primary), var(--secondary));
+            border-radius: 10px;
+        }
+
+        /* POPUP HEADER SHIMMER LINE */
+
+        .popup-header {
+            position: relative;
+        }
+
+        .popup-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            transition: width 0.6s ease 0.3s;
+        }
+
+        .popup-overlay.active .popup-header::after {
+            width: 100%;
+        }
+
+        /* POPUP BULLET POINTS */
+
+        .popup-item {
+            margin-bottom: 20px;
+            padding: 18px 20px;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            transform: translateY(18px);
+        }
+
+        .popup-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .popup-item:hover {
+            border-color: rgba(0, 245, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,245,255,0.08);
+        }
+
+        .popup-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition:
+                opacity 0.4s ease,
+                transform 0.4s cubic-bezier(0.34, 1.3, 0.64, 1),
+                border-color 0.3s,
+                box-shadow 0.3s;
+        }
+
+        .popup-item .item-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .popup-item .item-desc {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .typing-container {
+            margin-top: 15px;
+        }
+
+        .typing-text {
+            color: var(--muted);
+            margin-bottom: 14px;
+            min-height: 24px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:900px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 90px 5%;
+            }
+        }
+
+        /* STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 60px;
+        }
+
+        .stat-card {
+            padding: 35px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 42px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        /* SKILLS */
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-card {
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.45s ease;
+            border-radius: 24px 24px 0 0;
+        }
+
+        .skill-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 245, 255, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 245, 255, 0.1);
+        }
+
+        .skill-card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .skill-card-header i {
+            font-size: 28px;
+            color: var(--primary);
+            background: rgba(0, 245, 255, 0.08);
+            border: 1px solid rgba(0, 245, 255, 0.15);
+            border-radius: 12px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .skill-card-header h3 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .skill-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* TAG BASE */
+
+        .tag {
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: default;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+            opacity: 0;
+            transform: translateY(12px) scale(0.92);
+        }
+
+        .tag.tag-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition:
+                opacity 0.35s ease,
+                transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1),
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+        }
+
+        /* PRIMARY TAG (cyan) */
+        .tag {
+            background: rgba(0, 245, 255, 0.1);
+            border: 1px solid rgba(0, 245, 255, 0.22);
+            color: var(--primary);
+        }
+
+        .tag:hover {
+            background: rgba(0, 245, 255, 0.2);
+            box-shadow: 0 0 14px rgba(0, 245, 255, 0.25);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        /* SECONDARY TAG (purple) */
+        .tag-purple {
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.25);
+            color: #c084fc;
+        }
+
+        .tag-purple:hover {
+            background: rgba(168, 85, 247, 0.2);
+            box-shadow: 0 0 14px rgba(168, 85, 247, 0.25);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        /* NEUTRAL TAG (white/muted) */
+        .tag-neutral {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--muted);
+        }
+
+        .tag-neutral:hover {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 14px rgba(255,255,255,0.08);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        /* TIMELINE */
+
+        /* TIMELINE */
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        /* ANIMATED GROWING LINE */
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 0%;
+            background: linear-gradient(var(--primary), var(--secondary));
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            transition: height 1.6s ease;
+            border-radius: 10px;
+        }
+
+        .timeline.line-grow::before {
+            height: 100%;
+        }
+
+        .timeline-item {
+            width: 50%;
+            padding: 20px 44px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        /* TIMELINE CARD */
+
+        .timeline-content {
+            padding: 30px 32px;
+            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+            border-radius: 24px 24px 0 0;
+        }
+
+        .timeline-content:hover::before {
+            transform: scaleX(1);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-6px);
+            border-color: rgba(0, 245, 255, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 245, 255, 0.1);
+        }
+
+        /* CARD HEADER ROW */
+
+        .timeline-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+        }
+
+        .timeline-content h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .badge-current {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(0, 245, 255, 0.12);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            color: var(--primary);
+            white-space: nowrap;
+            animation: badgePulse 2.5s ease infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0,245,255,0.3); }
+            50%       { box-shadow: 0 0 0 6px rgba(0,245,255,0); }
+        }
+
+        /* DESIGNATION + META ROW */
+
+        .timeline-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .timeline-meta h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .timeline-meta .meta-location {
+            font-size: 13px;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .timeline-meta .meta-location i {
+            font-size: 14px;
+        }
+
+        /* BULLET POINTS */
+
+        .timeline-bullets {
+            list-style: none;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .timeline-bullets li {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.7;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .timeline-bullets li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-size: 14px;
+        }
+
+        /* TECH TAGS PER ROLE */
+
+        .timeline-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .timeline-tag {
+            font-size: 12px;
+            padding: 5px 12px;
+            border-radius: 30px;
+            background: rgba(0, 245, 255, 0.07);
+            border: 1px solid rgba(0, 245, 255, 0.18);
+            color: var(--primary);
+            transition: background 0.25s, transform 0.25s;
+        }
+
+        .timeline-tag:hover {
+            background: rgba(0, 245, 255, 0.18);
+            transform: translateY(-2px);
+        }
+
+        /* PULSING DOT */
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            position: absolute;
+            top: 38px;
+            right: -10px;
+            box-shadow: 0 0 0 4px rgba(0,245,255,0.15), 0 0 20px var(--primary);
+            z-index: 1;
+            animation: dotPulse 2.5s ease infinite;
+        }
+
+        @keyframes dotPulse {
+            0%, 100% { box-shadow: 0 0 0 4px rgba(0,245,255,0.15), 0 0 14px var(--primary); }
+            50%       { box-shadow: 0 0 0 8px rgba(0,245,255,0.0),  0 0 28px var(--primary); }
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -10px;
+            right: auto;
+        }
+
+        /* PROJECTS */
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.45s ease;
+            border-radius: 24px 24px 0 0;
+            z-index: 1;
+        }
+
+        .project-card:hover::before { transform: scaleX(1); }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 245, 255, 0.3);
+            box-shadow: 0 24px 60px rgba(0, 245, 255, 0.1);
+        }
+
+        .project-header {
+            padding: 28px 28px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .project-header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .project-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            background: rgba(0, 245, 255, 0.08);
+            border: 1px solid rgba(0, 245, 255, 0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .project-header h3 {
+            font-size: 17px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .project-domain-badge {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .badge-fintech {
+            background: rgba(0, 245, 255, 0.1);
+            border: 1px solid rgba(0, 245, 255, 0.25);
+            color: var(--primary);
+        }
+
+        .badge-edtech {
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.25);
+            color: #c084fc;
+        }
+
+        .project-body {
+            padding: 22px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            flex: 1;
+        }
+
+        .project-block {
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .project-block:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .project-block-label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--primary);
+            margin-bottom: 8px;
+            opacity: 0.85;
+        }
+
+        .project-block-label i { font-size: 14px; }
+
+        .project-block p {
+            font-size: 13.5px;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project-tag {
+            font-size: 12px;
+            padding: 5px 12px;
+            border-radius: 30px;
+            background: rgba(0, 245, 255, 0.07);
+            border: 1px solid rgba(0, 245, 255, 0.18);
+            color: var(--primary);
+            transition: background 0.25s, transform 0.25s;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .project-tag.tag-visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition:
+                opacity 0.35s ease,
+                transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1),
+                background 0.25s;
+        }
+
+        .project-tag:hover {
+            background: rgba(0, 245, 255, 0.18);
+            transform: translateY(-2px);
+        }
+
+        .project-footer {
+            padding: 0 28px 24px;
+        }
+
+        .project-company-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+            color: var(--muted);
+            padding: 7px 14px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .project-company-badge i {
+            font-size: 14px;
+            color: var(--primary);
+        }
+
+        /* CERTIFICATIONS */
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .cert-card {
+            padding: 30px;
+        }
+
+        /* CONTACT */
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 14px;
+            padding: 30px 20px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+            border-radius: 22px 22px 0 0;
+        }
+
+        .contact-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 245, 255, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 245, 255, 0.1);
+        }
+
+        .contact-card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: rgba(0, 245, 255, 0.08);
+            border: 1px solid rgba(0, 245, 255, 0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-card:hover .contact-card-icon {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .contact-card h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+            margin: 0;
+        }
+
+        .contact-card span {
+            color: var(--muted);
+            font-size: 13px;
+            word-break: break-word;
+        }
+
+        /* NAUKRI card — orange accent */
+        .contact-card.naukri-card .contact-card-icon {
+            background: rgba(255, 107, 0, 0.08);
+            border-color: rgba(255, 107, 0, 0.25);
+            color: #ff6b00;
+        }
+
+        .contact-card.naukri-card:hover {
+            border-color: rgba(255, 107, 0, 0.3);
+            box-shadow: 0 20px 50px rgba(255, 107, 0, 0.1);
+        }
+
+        .contact-card.naukri-card::before {
+            background: linear-gradient(to right, #ff6b00, #ff9a3c);
+        }
+
+        /* FUNNY TOAST NOTIFICATION */
+
+        .connect-toast {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%) translateY(120px);
+            background: linear-gradient(135deg, #0d1b2e, #0a1628);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            border-radius: 50px;
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--text);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5), 0 0 30px rgba(0,245,255,0.1);
+            z-index: 99999;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+            opacity: 0;
+            white-space: nowrap;
+            max-width: 90vw;
+        }
+
+        .connect-toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .connect-toast.hide {
+            transform: translateX(-50%) translateY(120px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .connect-toast .toast-emoji {
+            font-size: 20px;
+        }
+
+        .connect-toast .toast-text {
+            color: var(--muted);
+        }
+
+        .connect-toast .toast-text strong {
+            color: var(--primary);
+        }
+
+        /* FOOTER */
+
+        footer {
+            padding: 35px;
+            text-align: center;
+            color: #94A3B8;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:900px) {
+
+            .hero h1 {
+                white-space: normal;
+            }
+
+            .hero h3 {
+                white-space: normal;
+            }
+
+            .hero h1 {
+                font-size: 58px;
+            }
+
+            .hero h3 {
+                font-size: 26px;
+            }
+
+            .timeline::before {
+                left: 10px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding-left: 45px;
+                padding-right: 0;
+            }
+
+            .timeline-dot {
+                left: 0 !important;
+                right: auto !important;
+            }
+
+            .timeline-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+
+            .timeline-meta {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .contact-container {
+                padding: 0;
+                background: transparent;
+                border: none;
+                backdrop-filter: none;
+                box-shadow: none;
+            }
+
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .connect-toast {
+                white-space: normal;
+                text-align: center;
+                border-radius: 20px;
+                padding: 14px 20px;
+            }
+
+            nav {
+                padding: 20px 5%;
+            }
+
+            section {
+                padding: 90px 5%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        .availability-badge {
+            width: fit-content;
+            margin: auto;
+            margin-bottom: 40px;
+            padding: 12px 22px;
+            border-radius: 40px;
+            background: rgba(0, 255, 170, 0.08);
+            border: 1px solid rgba(0, 255, 170, 0.15);
+            color: #00ffaa;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #00ffaa;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        #typing {
+            display: inline-block;
+        }
+
+        .typed-cursor {
+            color: var(--primary);
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav>
+
+        <div class="logo">Tarun.</div>
+
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#certifications">Certifications</a>
+            <a href="#contact">Contact</a>
+        </div>
+
+    </nav>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-content" data-aos="zoom-in">
+
+            <h1>
+                Hi, I'm
+                <span class="gradient">Tarun S R</span>
+            </h1>
+
+            <h3>
+                <span id="typing"></span>
+            </h3>
+
+            <p>
+                QA Automation Engineer specialized in Web, Mobile, API, and Fintech testing.
+                Passionate about scalable automation frameworks, modern testing strategies,
+                and delivering high-quality software experiences.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="Tarun_Resume.pdf" class="btn primary-btn" download>
+                    <i class='bx bx-download'></i>
+                    Download Resume
+                </a>
+
+                <a href="#projects" class="btn secondary-btn">
+                    <i class='bx bx-code-alt'></i>
+                    View Projects
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ABOUT -->
+
+    <section id="about">
+
+        <h2 data-aos="fade-up">About Me</h2>
+
+        <div class="about-grid">
+
+            <!-- CARD 1 -->
+
+            <div class="about-flip-card" onclick="openPopup('manual')" data-aos="fade-right">
+
+                <div class="about-flip-inner">
+
+                    <div class="glass about-card about-front">
+
+                        <i class='bx bx-code-block'></i>
+
+                        <h3>Manual Tester</h3>
+
+                        <p>Click to explore more</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- CARD 2 -->
+
+            <div class="about-flip-card" onclick="openPopup('automation')" data-aos="fade-up">
+
+                <div class="about-flip-inner">
+
+                    <div class="glass about-card about-front">
+
+                        <i class='bx bx-mobile-alt'></i>
+
+                        <h3>Automation Engineer</h3>
+
+                        <p>Click to explore more</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- CARD 3 -->
+
+            <div class="about-flip-card" onclick="openPopup('tools')" data-aos="fade-left">
+
+                <div class="about-flip-inner">
+
+                    <div class="glass about-card about-front">
+
+                        <i class='bx bx-data'></i>
+
+                        <h3>Domain Expertise</h3>
+
+                        <p>Click to explore more</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- STATS -->
+
+    <section>
+
+        <div class="stats">
+
+            <div class="glass stat-card">
+                <h3>1.8+</h3>
+                <p>Years Experience</p>
+            </div>
+
+            <div class="glass stat-card">
+                <h3>20+</h3>
+                <p>Automation Modules</p>
+            </div>
+
+            <div class="glass stat-card">
+                <h3>60%</h3>
+                <p>Regression Optimization</p>
+            </div>
+
+            <div class="glass stat-card">
+                <h3>100+</h3>
+                <p>Test Cases Automated</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- SKILLS -->
+
+    <section id="skills">
+
+        <h2 data-aos="fade-up">Technical Skills</h2>
+
+        <div class="skills-grid">
+
+            <!-- CARD 1 — Automation -->
+            <div class="glass skill-card" data-aos="fade-up" data-aos-delay="0">
+                <div class="skill-card-header">
+                    <i class='bx bx-bot'></i>
+                    <h3>Automation Testing</h3>
+                </div>
+                <div class="skill-tags">
+                    <span class="tag">Playwright</span>
+                    <span class="tag">Selenium</span>
+                    <span class="tag">Appium</span>
+                    <span class="tag">Pytest</span>
+                    <span class="tag">POM</span>
+                    <span class="tag">Prefect</span>
+                </div>
+            </div>
+
+            <!-- CARD 2 — API & Manual -->
+            <div class="glass skill-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="skill-card-header">
+                    <i class='bx bx-transfer-alt'></i>
+                    <h3>API & Manual Testing</h3>
+                </div>
+                <div class="skill-tags">
+                    <span class="tag">Postman</span>
+                    <span class="tag">REST APIs</span>
+                    <span class="tag tag-neutral">E2E Testing</span>
+                    <span class="tag tag-neutral">Regression</span>
+                    <span class="tag tag-neutral">Smoke & Sanity</span>
+                    <span class="tag tag-neutral">UAT</span>
+                </div>
+            </div>
+
+            <!-- CARD 3 — Languages -->
+            <div class="glass skill-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="skill-card-header">
+                    <i class='bx bx-code-curly'></i>
+                    <h3>Languages</h3>
+                </div>
+                <div class="skill-tags">
+                    <span class="tag tag-purple">Python</span>
+                    <span class="tag tag-purple">SQL</span>
+                </div>
+            </div>
+
+            <!-- CARD 4 — Tools & Platforms -->
+            <div class="glass skill-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="skill-card-header">
+                    <i class='bx bx-wrench'></i>
+                    <h3>Tools & Platforms</h3>
+                </div>
+                <div class="skill-tags">
+                    <span class="tag tag-neutral">JIRA</span>
+                    <span class="tag tag-neutral">GitHub</span>
+                    <span class="tag tag-neutral">Azure</span>
+                    <span class="tag tag-neutral">Agile / Scrum</span>
+                </div>
+            </div>
+
+            <!-- CARD 5 — Domains -->
+            <div class="glass skill-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="skill-card-header">
+                    <i class='bx bx-buildings'></i>
+                    <h3>Domain Experience</h3>
+                </div>
+                <div class="skill-tags">
+                    <span class="tag">Fintech</span>
+                    <span class="tag">EdTech</span>
+                    <span class="tag tag-neutral">Web</span>
+                    <span class="tag tag-neutral">Mobile (APK)</span>
+                    <span class="tag tag-neutral">Data Pipelines</span>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- EXPERIENCE -->
+
+    <section id="experience">
+
+        <h2 data-aos="fade-up">Experience</h2>
+
+        <div class="timeline" id="experienceTimeline">
+
+            <!-- JOB 1 — M2P Fintech -->
+
+            <div class="timeline-item" data-aos="fade-right" data-aos-delay="100">
+
+                <div class="timeline-dot"></div>
+
+                <div class="glass timeline-content">
+
+                    <div class="timeline-header">
+                        <h3>M2P Fintech</h3>
+                        <span class="badge-current">● Current</span>
+                    </div>
+
+                    <div class="timeline-meta">
+                        <h4>SDET 1 &nbsp;|&nbsp; May 2026 – Present</h4>
+                        <span class="meta-location"><i class='bx bx-map-pin'></i> Bengaluru, India</span>
+                    </div>
+
+                    <ul class="timeline-bullets">
+                        <li>Designed and implemented a hybrid POM-based automation framework using Appium (Mobile/APK) and Playwright (Web) with Python — enabling unified cross-platform test execution for the Collect application.</li>
+                        <li>Validated end-to-end loan collection workflows across 6+ roles (Collector, Telecaller, Manager, Lender Admin, Super Admin) covering RBAC, SMS triggers & field operations — ensuring zero permission leakage.</li>
+                        <li>Performed API testing using Postman across Collect & LMS modules — validating contracts, business rules, status codes & auth flows; leveraged ChatGPT & GitHub Copilot for test design and bug reporting.</li>
+                    </ul>
+
+                    <div class="timeline-tags">
+                        <span class="timeline-tag">Playwright</span>
+                        <span class="timeline-tag">Appium</span>
+                        <span class="timeline-tag">Python</span>
+                        <span class="timeline-tag">Postman</span>
+                        <span class="timeline-tag">POM</span>
+                        <span class="timeline-tag">GitHub Copilot</span>
+                        <span class="timeline-tag">ChatGPT</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- JOB 2 — Focus Edumatics -->
+
+            <div class="timeline-item" data-aos="fade-left" data-aos-delay="200">
+
+                <div class="timeline-dot"></div>
+
+                <div class="glass timeline-content">
+
+                    <div class="timeline-header">
+                        <h3>Focus Edumatics Pvt Ltd</h3>
+                    </div>
+
+                    <div class="timeline-meta">
+                        <h4>QA Engineer &nbsp;|&nbsp; Jan 2024 – Jan 2025</h4>
+                        <span class="meta-location"><i class='bx bx-map-pin'></i> Bengaluru, India</span>
+                    </div>
+
+                    <ul class="timeline-bullets">
+                        <li>Owned end-to-end QA delivery in an Agile Scrum environment — leading test planning, execution, and sign-off across Smoke, Regression, Functional & UAT testing for complex role-based web applications.</li>
+                        <li>Developed automation-first testing solutions using Python, Selenium, Playwright & Pytest (POM) — covering UI, regression, and functional test suites with scalable, maintainable framework architecture.</li>
+                        <li>Automated Data Warehouse validation pipelines using Prefect — ensuring data integrity, transformation accuracy, and reliable reporting across EdTech analytics pipelines.</li>
+                    </ul>
+
+                    <div class="timeline-tags">
+                        <span class="timeline-tag">Selenium</span>
+                        <span class="timeline-tag">Playwright</span>
+                        <span class="timeline-tag">Pytest</span>
+                        <span class="timeline-tag">Python</span>
+                        <span class="timeline-tag">Prefect</span>
+                        <span class="timeline-tag">Agile / Scrum</span>
+                        <span class="timeline-tag">JIRA</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- PROJECTS -->
+
+    <section id="projects">
+
+        <h2 data-aos="fade-up">Projects</h2>
+
+        <div class="projects-grid">
+
+            <!-- PROJECT 1 -->
+            <div class="glass project-card" data-aos="fade-up" data-aos-delay="0">
+                <div class="project-header">
+                    <div class="project-header-left">
+                        <div class="project-icon"><i class='bx bx-devices'></i></div>
+                        <h3>Collect App Automation Framework</h3>
+                    </div>
+                    <span class="project-domain-badge badge-fintech">Fintech</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-block">
+                        <div class="project-block-label"><i class='bx bx-notepad'></i> About</div>
+                        <p>Built a hybrid POM-based automation framework for M2P Fintech's Collect application covering both Web (Playwright) and Mobile/APK (Appium) platforms — automating end-to-end test flows across 6+ user roles including Collector, Telecaller, Manager, Lender Admin, and Super Admin.</p>
+                    </div>
+                    <div class="project-block">
+                        <div class="project-block-label"><i class='bx bx-target-lock'></i> Outcome</div>
+                        <p>Achieved unified cross-platform test execution, reducing manual regression effort significantly and enabling consistent, faster release cycles across both Web and Mobile channels.</p>
+                    </div>
+                    <div class="project-block">
+                        <div class="project-block-label"><i class='bx bx-chip'></i> Tech Stack</div>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Playwright</span>
+                            <span class="project-tag">Appium</span>
+                            <span class="project-tag">Pytest</span>
+                            <span class="project-tag">POM</span>
+                            <span class="project-tag">GitHub</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-footer">
+                    <span class="project-company-badge">
+                        <i class='bx bx-building-house'></i> M2P Fintech
+                    </span>
+                </div>
+            </div>
+
+            <!-- PROJECT 2 -->
+            <div class="glass project-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="project-header">
+                    <div class="project-header-left">
+                        <div class="project-icon"><i class='bx bx-transfer-alt'></i></div>
+                        <h3>Collect & LMS API Test Suite</h3>
+                    </div>
+                    <span class="project-domain-badge badge-fintech">Fintech</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-block">
+                        <div class="project-block-label"><i class='bx bx-notepad'></i> About</div>
+                        <p>Designed and executed a comprehensive API testing suite for M2P Fintech's Collect and LMS modules — validating request-response contracts, HTTP status codes, error handling, business rule enforcement, and authentication flows across all critical backend endpoints.</p>
+                    </div>
+                    <div class="project-block">
+                        <div class="project-block-label"><i class='bx bx-target-lock'></i> Outcome</div>
+                        <p>Identified and reported critical API contract mismatches and auth flow failures early in the cycle — preventing downstream data corruption and ensuring reliable backend integrations before production releases.</p>
+                    </div>
+                    <div class="project-block">
+                        <div class="project-block-label"><i class='bx bx-chip'></i> Tech Stack</div>
+                        <div class="project-tags">
+                            <span class="project-tag">Postman</span>
+                            <span class="project-tag">REST APIs</span>
+                            <span class="project-tag">JSON</span>
+                            <span class="project-tag">Auth Testing</span>
+                            <span class="project-tag">JIRA</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-footer">
+                    <span class="project-company-badge">
+                        <i class='bx bx-building-house'></i> M2P Fintech
+                    </span>
+                </div>
+            </div>
+
+            <!-- PROJECT 3 -->
+            <div class="glass project-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="project-header">
+                    <div class="project-header-left">
+                        <div class="project-icon"><i class='bx bx-code-curly'></i></div>
+                        <h3>EdTech UI Automation Suite</h3>
+                    </div>
+                    <span class="project-domain-badge badge-edtech">EdTech</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-block">
+                        <div class="project-block-label"><i class='bx bx-notepad'></i> About</div>
+                        <p>Developed an automation-first UI testing suite for Focus Edumatics' role-based web application using Selenium, Playwright, and Pytest with POM architecture — covering Smoke, Regression, Functional, and UAT test scenarios across complex multi-role workflows.</p>
+                    </div>
+                    <div class="project-block">
+                        <div class="project-block-label"><i class='bx bx-target-lock'></i> Outcome</div>
+                        <p>Delivered quality-cleared releases consistently across Agile sprint cycles — reducing manual testing effort, increasing regression coverage, and minimising production-escaped defects over the engagement.</p>
+                    </div>
+                    <div class="project-block">
+                        <div class="project-block-label"><i class='bx bx-chip'></i> Tech Stack</div>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Selenium</span>
+                            <span class="project-tag">Playwright</span>
+                            <span class="project-tag">Pytest</span>
+                            <span class="project-tag">POM</span>
+                            <span class="project-tag">JIRA</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-footer">
+                    <span class="project-company-badge">
+                        <i class='bx bx-building-house'></i> Focus Edumatics
+                    </span>
+                </div>
+            </div>
+
+            <!-- PROJECT 4 -->
+            <div class="glass project-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="project-header">
+                    <div class="project-header-left">
+                        <div class="project-icon"><i class='bx bx-data'></i></div>
+                        <h3>Data Warehouse Validation Pipeline</h3>
+                    </div>
+                    <span class="project-domain-badge badge-edtech">EdTech</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-block">
+                        <div class="project-block-label"><i class='bx bx-notepad'></i> About</div>
+                        <p>Automated the validation of Data Warehouse pipelines at Focus Edumatics using Prefect — testing data transformation accuracy, integrity checks, and reporting consistency across multiple EdTech analytics pipelines to ensure reliable data flow from source to reporting layer.</p>
+                    </div>
+                    <div class="project-block">
+                        <div class="project-block-label"><i class='bx bx-target-lock'></i> Outcome</div>
+                        <p>Ensured end-to-end data integrity across transformation layers — proactively detecting data discrepancies before they reached reporting dashboards, improving stakeholder confidence in analytics accuracy.</p>
+                    </div>
+                    <div class="project-block">
+                        <div class="project-block-label"><i class='bx bx-chip'></i> Tech Stack</div>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Prefect</span>
+                            <span class="project-tag">SQL</span>
+                            <span class="project-tag">Data Pipelines</span>
+                            <span class="project-tag">Azure</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-footer">
+                    <span class="project-company-badge">
+                        <i class='bx bx-building-house'></i> Focus Edumatics
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- CERTIFICATIONS -->
+
+    <section id="certifications">
+
+        <h2 data-aos="fade-up">Certifications</h2>
+
+        <div class="cert-grid">
+
+            <div class="glass cert-card">
+                <h3>Playwright Automation</h3>
+                <p>Professional automation certification focused on modern UI testing.</p>
+            </div>
+
+            <div class="glass cert-card">
+                <h3>API Testing</h3>
+                <p>Advanced API validation and backend integration testing concepts.</p>
+            </div>
+
+            <div class="glass cert-card">
+                <h3>Azure Fundamentals</h3>
+                <p>Cloud platform basics, deployment concepts, and DevOps fundamentals.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- CONTACT -->
+
+    <section id="contact">
+
+        <h2 data-aos="fade-up">Let's Connect</h2>
+
+        <div class="availability-badge" data-aos="fade-up">
+            <span class="status-dot"></span>
+            Open to QA Automation Opportunities
+        </div>
+
+        <div class="contact-container">
+
+            <div class="contact-grid">
+
+                <!-- EMAIL → opens Gmail compose with subject -->
+                <div class="contact-card"
+                    data-aos="fade-up" data-aos-delay="0"
+                    data-toast="📬 Opening Gmail... Tarun checks his inbox more than he checks test reports!"
+                    onclick="handleContact(event, 'https://mail.google.com/mail/?view=cm&to=tarunsr3024@gmail.com&su=Opportunity%20for%20Tarun%20SR%20-%20QA%20Automation%20Engineer&body=Hi%20Tarun%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20love%20to%20connect!')">
+                    <div class="contact-card-icon"><i class='bx bx-envelope'></i></div>
+                    <h3>Email</h3>
+                    <span>tarunsr3024@gmail.com</span>
+                </div>
+
+                <!-- PHONE -->
+                <div class="contact-card"
+                    data-aos="fade-up" data-aos-delay="100"
+                    data-toast="📞 Calling Tarun... He'll pick up faster than his CI pipeline runs!"
+                    onclick="handleContact(event, 'tel:+918147021751')">
+                    <div class="contact-card-icon"><i class='bx bx-phone-call'></i></div>
+                    <h3>Phone</h3>
+                    <span>+91 8147021751</span>
+                </div>
+
+                <!-- WHATSAPP -->
+                <div class="contact-card"
+                    data-aos="fade-up" data-aos-delay="200"
+                    data-toast="💬 Opening WhatsApp... Warning: Tarun responds faster than Playwright finds elements!"
+                    onclick="handleContact(event, 'https://wa.me/918147021751', true)">
+                    <div class="contact-card-icon"><i class='bx bxl-whatsapp'></i></div>
+                    <h3>WhatsApp</h3>
+                    <span>Chat on WhatsApp</span>
+                </div>
+
+                <!-- LINKEDIN -->
+                <div class="contact-card"
+                    data-aos="fade-up" data-aos-delay="300"
+                    data-toast="💼 Off to LinkedIn... Where bugs are called 'features' in job descriptions!"
+                    onclick="handleContact(event, 'YOUR_LINKEDIN_URL', true)">
+                    <div class="contact-card-icon"><i class='bx bxl-linkedin-square'></i></div>
+                    <h3>LinkedIn</h3>
+                    <span>linkedin.com/in/your-profile</span>
+                </div>
+
+                <!-- GITHUB -->
+                <div class="contact-card"
+                    data-aos="fade-up" data-aos-delay="400"
+                    data-toast="🐙 Heading to GitHub... Where Tarun pushes code, not bugs to production!"
+                    onclick="handleContact(event, 'YOUR_GITHUB_URL', true)">
+                    <div class="contact-card-icon"><i class='bx bxl-github'></i></div>
+                    <h3>GitHub</h3>
+                    <span>github.com/your-username</span>
+                </div>
+
+                <!-- NAUKRI -->
+                <div class="contact-card naukri-card"
+                    data-aos="fade-up" data-aos-delay="500"
+                    data-toast="🚀 Launching Naukri... Tarun's resume has a 100% pass rate on recruiter screens!"
+                    onclick="handleContact(event, 'YOUR_NAUKRI_URL', true)">
+                    <div class="contact-card-icon"><i class='bx bx-briefcase'></i></div>
+                    <h3>Naukri</h3>
+                    <span>View Profile</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FUNNY TOAST -->
+    <div class="connect-toast" id="connectToast">
+        <span class="toast-emoji" id="toastEmoji">🎉</span>
+        <span class="toast-text" id="toastText"></span>
+    </div>
+
+    <!-- FOOTER -->
+
+    <footer>
+        © 2026 Tarun S R | SDET & QA Automation Engineer
+    </footer>
+
+    <!-- POPUP MODAL -->
+
+    <div class="popup-overlay" id="popupOverlay" onclick="closePopupOnOverlay(event)">
+        <div class="popup-window" id="popupWindow">
+
+            <div class="popup-header">
+                <h3 id="popupTitle"></h3>
+                <button class="popup-close" onclick="closePopup()">✕</button>
+            </div>
+
+            <div class="popup-body" id="popupBody"></div>
+
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js"></script>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+
+        // AOS Animation
+
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Typing Animation
+
+        new Typed('#typing', {
+            strings: [
+                'SDET Engineer',
+                'QA Automation Engineer',
+                'Playwright Expert',
+                'Appium Specialist',
+                'QA in Fintech and EdTech Field'
+            ],
+            typeSpeed: 60,
+            backSpeed: 40,
+            loop: true
+        });
+
+        // WHATSAPP FORM FUNCTIONALITY
+
+        const whatsappForm = document.getElementById('whatsappForm');
+
+        whatsappForm.addEventListener('submit', function (e) {
+
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            const phoneNumber = '918147021751';
+
+            const whatsappMessage =
+                `Hello Tarun,
+
+New Portfolio Inquiry
+
+Name: ${name}
+Email: ${email}
+
+Message:
+${message}`;
+
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            window.open(whatsappURL, '_blank');
+            whatsappForm.reset();
+
+        });
+
+    </script>
+
+    <script>
+
+        // POPUP DATA
+
+        const popupData = {
+            manual: {
+                title: '🧪 Manual Tester',
+                items: [
+                    {
+                        title: '✔ Fintech | E2E Validation',
+                        desc: 'Tested end-to-end loan workflows across 6+ roles on Web & Mobile at M2P Fintech, covering RBAC & SMS validations — ensuring zero permission leakage across production releases.'
+                    },
+                    {
+                        title: '✔ EdTech | Agile QA',
+                        desc: 'Owned full QA cycle for a role-based EdTech app at Focus Edumatics across Smoke, Regression & UAT testing in Agile sprints — delivering consistent quality-cleared releases with minimal production defects.'
+                    },
+                    {
+                        title: '✔ API & Data Testing',
+                        desc: 'Validated 50+ API endpoints via Postman and Data Warehouse pipelines across Fintech & EdTech domains — catching critical contract mismatches and data integrity issues before production.'
+                    }
+                ]
+            },
+            automation: {
+                title: '⚙️ Automation Engineer',
+                items: [
+                    {
+                        title: '✔ Hybrid Framework Design',
+                        desc: 'Built a hybrid POM-based automation framework at M2P Fintech using Appium (Mobile/APK) and Playwright (Web) with Python — enabling unified cross-platform test execution for the Collect application.'
+                    },
+                    {
+                        title: '✔ UI & Regression Automation',
+                        desc: 'Developed automation-first testing solutions at Focus Edumatics using Python, Selenium, Playwright & Pytest (POM) — covering UI, Smoke, Functional & Regression test suites for complex role-based web applications.'
+                    },
+                    {
+                        title: '✔ Data Pipeline Automation',
+                        desc: 'Automated Data Warehouse validation pipelines using Prefect at Focus Edumatics — ensuring data integrity, reliable reporting accuracy, and proactive defect detection across transformation layers.'
+                    }
+                ]
+            },
+            tools: {
+                title: '🛠️ Domain Expertise',
+                items: [
+                    {
+                        title: '✔ Fintech Domain',
+                        desc: 'Loan collection platforms, LMS modules, payment workflows & role-based banking operations at M2P Fintech'
+                    },
+                    {
+                        title: '✔ EdTech Domain',
+                        desc: 'Learning management systems, data reporting pipelines & role-based web apps at Focus Edumatics'
+                    },
+                    {
+                        title: '✔ Testing Scope',
+                        desc: 'Web · Mobile (APK) · API · Data Pipelines — across both domains end-to-end'
+                    }
+                ]
+            }
+        };
+
+        // OPEN POPUP
+
+        function openPopup(key) {
+            const data = popupData[key];
+            if (!data) return;
+
+            document.getElementById('popupTitle').textContent = data.title;
+
+            const body = document.getElementById('popupBody');
+            body.innerHTML = '';
+
+            data.items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'popup-item';
+                div.innerHTML = `
+                    <div class="item-title">${item.title}</div>
+                    <div class="item-desc">${item.desc}</div>
+                `;
+                body.appendChild(div);
+            });
+
+            body.scrollTop = 0;
+
+            const overlay = document.getElementById('popupOverlay');
+            overlay.classList.remove('closing');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // Stagger each popup-item in with delay
+            const items = body.querySelectorAll('.popup-item');
+            items.forEach((item, i) => {
+                setTimeout(() => {
+                    item.classList.add('visible');
+                }, 280 + i * 110);
+            });
+        }
+
+        // CLOSE POPUP
+
+        function closePopup() {
+            const overlay = document.getElementById('popupOverlay');
+            overlay.classList.add('closing');
+
+            setTimeout(() => {
+                overlay.classList.remove('active', 'closing');
+                document.body.style.overflow = '';
+
+                // Reset items for next open
+                document.querySelectorAll('.popup-item').forEach(el => {
+                    el.classList.remove('visible');
+                });
+            }, 300);
+        }
+
+        // CLOSE ON OVERLAY CLICK (outside window)
+
+        function closePopupOnOverlay(e) {
+            if (e.target === document.getElementById('popupOverlay')) {
+                closePopup();
+            }
+        }
+
+        // TIMELINE LINE GROW ON SCROLL
+
+        const timelineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('line-grow');
+                    timelineObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        const timeline = document.getElementById('experienceTimeline');
+        if (timeline) timelineObserver.observe(timeline);
+
+        // TAG STAGGER ANIMATION ON SCROLL
+
+        const tagObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const tags = entry.target.querySelectorAll('.tag, .project-tag');
+                    tags.forEach((tag, i) => {
+                        setTimeout(() => {
+                            tag.classList.add('tag-visible');
+                        }, i * 80);
+                    });
+                    tagObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.skill-card, .project-card').forEach(card => {
+            tagObserver.observe(card);
+        });
+
+
+
+        document.addEventListener('keydown', function (e) {
+            const overlay = document.getElementById('popupOverlay');
+            if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                closePopup();
+            }
+        });
+
+    </script>
+
+    <script>
+
+        // CONTACT HANDLER — funny toast + navigate
+
+        let toastTimer = null;
+
+        function handleContact(event, url, newTab = false) {
+            const card = event.currentTarget;
+            const message = card.getAttribute('data-toast') || '👋 Connecting...';
+
+            const toast    = document.getElementById('connectToast');
+            const toastText = document.getElementById('toastText');
+
+            // Split first emoji from rest of text
+            const parts = message.split(' ');
+            const emoji = parts[0];
+            const text  = parts.slice(1).join(' ');
+
+            document.getElementById('toastEmoji').textContent = emoji;
+            toastText.innerHTML = text;
+
+            // Show toast
+            toast.classList.remove('hide');
+            toast.classList.add('show');
+
+            // Clear existing timer
+            if (toastTimer) clearTimeout(toastTimer);
+
+            // Auto hide after 3.2s
+            toastTimer = setTimeout(() => {
+                toast.classList.add('hide');
+                setTimeout(() => toast.classList.remove('show', 'hide'), 350);
+            }, 3200);
+
+            // Navigate after short delay (let toast show first)
+            setTimeout(() => {
+                if (url && url !== '#' && !url.startsWith('YOUR_')) {
+                    if (newTab) {
+                        window.open(url, '_blank');
+                    } else {
+                        window.location.href = url;
+                    }
+                }
+            }, 450);
+        }
+
+    </script>
+
+</body>
+
+</html>
