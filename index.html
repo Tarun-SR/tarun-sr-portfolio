@@ -33,6 +33,34 @@
     <!-- FAVICON (optional — add your favicon.ico) -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
+    <!-- CANONICAL URL -->
+    <link rel="canonical" href="YOUR_PORTFOLIO_URL">
+
+    <!-- STRUCTURED DATA — Google Rich Results -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Tarun S R",
+        "jobTitle": "SDET & QA Automation Engineer",
+        "description": "QA Automation Engineer with 1.8+ years experience in Playwright, Selenium, Appium, Python and API Testing across Fintech and EdTech domains.",
+        "url": "YOUR_PORTFOLIO_URL",
+        "email": "tarunsr3024@gmail.com",
+        "telephone": "+918147021751",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Bengaluru",
+            "addressCountry": "IN"
+        },
+        "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "CMR Institute of Technology",
+            "address": "Bangalore, India"
+        },
+        "knowsAbout": ["Playwright", "Selenium", "Appium", "Python", "API Testing", "QA Automation", "Pytest", "Postman", "Fintech Testing", "EdTech Testing"]
+    }
+    </script>
+
     <!-- GOOGLE FONT -->
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
@@ -158,6 +186,13 @@
             transition: 0.3s;
             font-size: 15px;
             position: relative;
+        }
+
+        /* TABLET NAV FIX — prevent overflow */
+        @media(max-width: 1100px) and (min-width: 901px) {
+            .nav-links { gap: 20px; }
+            .nav-links a { font-size: 13px; }
+            .logo { font-size: 26px; }
         }
 
         .nav-links a::after {
@@ -597,6 +632,46 @@
             color: var(--primary);
             margin-bottom: 10px;
         }
+
+        /* EDUCATION STAT CARD */
+
+        .edu-card {
+            display: flex !important;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .edu-card i {
+            font-size: 30px;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .edu-card h3 {
+            font-size: 22px !important;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 2px;
+        }
+
+        .edu-card p {
+            font-size: 13px;
+            color: var(--muted);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .edu-meta {
+            font-size: 11px;
+            color: var(--muted);
+            opacity: 0.7;
+            margin-top: 2px;
+            letter-spacing: 0.02em;
+        }
+
+        body.light-mode .edu-meta { color: #475569; }
 
         /* SKILLS */
 
@@ -1538,8 +1613,50 @@
         }
 
         /* ================================
-           ROUND 4 — DIVIDERS, THEME, TESTIMONIALS
+           ACCESSIBILITY — KEYBOARD FOCUS
         ================================ */
+
+        /* Remove default outline, add custom */
+        *:focus { outline: none; }
+
+        *:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        /* Nav links focus */
+        .nav-links a:focus-visible,
+        .mobile-menu a:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 4px;
+            border-radius: 4px;
+            color: var(--primary);
+        }
+
+        /* Buttons focus */
+        .btn:focus-visible,
+        .theme-toggle:focus-visible,
+        .back-to-top:focus-visible,
+        .popup-close:focus-visible,
+        .mobile-menu-close:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 3px;
+            box-shadow: 0 0 0 4px rgba(0,245,255,0.15);
+        }
+
+        /* Cards focus — for keyboard nav */
+        .contact-card:focus-visible,
+        .about-flip-card:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 4px;
+            border-radius: 24px;
+        }
+
+        /* Light mode focus */
+        body.light-mode *:focus-visible {
+            outline-color: var(--primary);
+        }
 
         /* 8. SECTION DIVIDERS */
 
@@ -2543,7 +2660,7 @@
                             Replace the icon below with:
                             <img src="YOUR_PHOTO.jpg" alt="Tarun S R">
                         -->
-                        <img src="Blue-suite.png" alt="Tarun S R">
+                        <img src="Blue-suite.png" alt="Tarun S R — SDET & QA Automation Engineer" loading="lazy" decoding="async">
                         <!-- <i class='bx bx-user hero-photo-placeholder'></i> -->
                     </div>
                 </div>
@@ -2649,6 +2766,13 @@
             <div class="glass stat-card">
                 <h3 class="stat-number" data-target="100" data-suffix="+">0+</h3>
                 <p>Test Cases Automated</p>
+            </div>
+
+            <div class="glass stat-card edu-card">
+                <i class='bx bx-graduation'></i>
+                <h3>MCA</h3>
+                <p>CMR Institute of Technology</p>
+                <span class="edu-meta">Bengaluru &nbsp;·&nbsp; 8.8 CGPA &nbsp;·&nbsp; 2021–2023</span>
             </div>
 
         </div>
