@@ -2031,6 +2031,62 @@
         .mobile-menu.open a:nth-child(4) { transition-delay: 0.20s; }
         .mobile-menu.open a:nth-child(5) { transition-delay: 0.25s; }
         .mobile-menu.open a:nth-child(6) { transition-delay: 0.30s; }
+        .mobile-menu.open a:nth-child(7) { transition-delay: 0.35s; }
+
+        .mobile-menu a:hover {
+            color: var(--primary);
+            transform: scale(1.08);
+        }
+
+        .mobile-menu a.active { color: var(--primary); }
+
+        /* MOBILE MENU CLOSE BUTTON */
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 28px;
+            right: 28px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--text);
+            transition: background 0.25s ease, border-color 0.25s ease,
+                        transform 0.3s ease, color 0.25s ease;
+            opacity: 0;
+            transform: scale(0.7) rotate(-90deg);
+        }
+
+        .mobile-menu.open .mobile-menu-close {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+            transition-delay: 0.2s;
+        }
+
+        .mobile-menu-close:hover {
+            background: rgba(255,0,80,0.12);
+            border-color: rgba(255,0,80,0.3);
+            color: #ff5080;
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        body.light-mode .mobile-menu-close {
+            background: rgba(0,0,0,0.05);
+            border-color: rgba(0,0,0,0.1);
+            color: #1e293b;
+        }
+
+        body.light-mode .mobile-menu-close:hover {
+            background: rgba(255,0,80,0.08);
+            border-color: rgba(255,0,80,0.2);
+            color: #e11d48;
+        }
 
         .mobile-menu a:hover {
             color: var(--primary);
@@ -2392,13 +2448,18 @@
 
     <!-- MOBILE MENU DRAWER -->
     <div class="mobile-menu" id="mobileMenu">
+
+        <!-- CLOSE BUTTON -->
+        <button class="mobile-menu-close" onclick="closeMobileMenu()" title="Close Menu">
+            <i class='bx bx-x'></i>
+        </button>
+
         <a href="#about"          onclick="closeMobileMenu()">About</a>
         <a href="#skills"         onclick="closeMobileMenu()">Skills</a>
         <a href="#experience"     onclick="closeMobileMenu()">Experience</a>
         <a href="#projects"       onclick="closeMobileMenu()">Projects</a>
-        <a href="#certifications" onclick="closeMobileMenu()">Certifications</a>
-        <a href="#testimonials"   onclick="closeMobileMenu()">Testimonials</a>
         <a href="#contact"        onclick="closeMobileMenu()">Contact</a>
+
     </div>
 
     <!-- NAVBAR -->
@@ -2412,8 +2473,6 @@
             <a href="#skills">Skills</a>
             <a href="#experience">Experience</a>
             <a href="#projects">Projects</a>
-            <a href="#certifications">Certifications</a>
-            <a href="#testimonials">Testimonials</a>
             <a href="#contact">Contact</a>
         </div>
 
@@ -2927,6 +2986,12 @@
     </section>
 
     <!-- DIVIDER -->
+    <!-- ================================================
+         FUTURE ENHANCEMENT — Uncomment when ready
+         - Certifications Section
+         - What People Say (Testimonials) Section
+    ================================================
+
     <div class="section-divider">
         <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="rgba(0,245,255,0.04)"/>
@@ -2934,7 +2999,7 @@
         </svg>
     </div>
 
-    <!-- CERTIFICATIONS -->
+    CERTIFICATIONS
 
     <section id="certifications">
 
@@ -2994,7 +3059,6 @@
 
     </section>
 
-    <!-- DIVIDER -->
     <div class="section-divider">
         <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0,20 C480,55 960,5 1440,35 L1440,60 L0,60 Z" fill="rgba(168,85,247,0.04)"/>
@@ -3002,7 +3066,7 @@
         </svg>
     </div>
 
-    <!-- TESTIMONIALS -->
+    TESTIMONIALS
 
     <section id="testimonials">
 
@@ -3010,7 +3074,6 @@
 
         <div class="testimonials-grid">
 
-            <!-- TESTIMONIAL 1 -->
             <div class="glass testimonial-card" data-aos="fade-up" data-aos-delay="0">
                 <div class="quote-icon">"</div>
                 <p class="testimonial-text">
@@ -3030,7 +3093,6 @@
                 </div>
             </div>
 
-            <!-- TESTIMONIAL 2 -->
             <div class="glass testimonial-card" data-aos="fade-up" data-aos-delay="120">
                 <div class="quote-icon">"</div>
                 <p class="testimonial-text">
@@ -3050,7 +3112,6 @@
                 </div>
             </div>
 
-            <!-- TESTIMONIAL 3 -->
             <div class="glass testimonial-card" data-aos="fade-up" data-aos-delay="240">
                 <div class="quote-icon">"</div>
                 <p class="testimonial-text">
@@ -3074,7 +3135,6 @@
 
     </section>
 
-    <!-- DIVIDER -->
     <div class="section-divider">
         <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0,25 C360,55 1080,5 1440,40 L1440,60 L0,60 Z" fill="rgba(0,245,255,0.04)"/>
@@ -3082,7 +3142,7 @@
         </svg>
     </div>
 
-    <!-- CONTACT -->
+    ================================================ -->
 
     <section id="contact">
 
