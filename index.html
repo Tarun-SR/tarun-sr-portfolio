@@ -20,8 +20,8 @@
     <meta property="og:title" content="Tarun S R | SDET & QA Automation Engineer">
     <meta property="og:description"
         content="QA Automation Engineer specialized in Web, Mobile & API Testing across Fintech and EdTech — Playwright · Selenium · Appium · Python.">
-    <meta property="og:image" content="YOUR_PROFILE_PHOTO_URL">
-    <meta property="og:url" content="YOUR_PORTFOLIO_URL">
+    <meta property="og:image" content="https://tarun-sr.github.io/tarun-sr-portfolio/Blue-suite.png">
+    <meta property="og:url" content="https://tarun-sr.github.io/tarun-sr-portfolio/">
     <meta property="og:site_name" content="Tarun SR Portfolio">
 
     <!-- TWITTER CARD -->
@@ -29,7 +29,7 @@
     <meta name="twitter:title" content="Tarun S R | SDET & QA Automation Engineer">
     <meta name="twitter:description"
         content="QA Automation Engineer specialized in Web, Mobile & API Testing — Playwright · Selenium · Appium · Python.">
-    <meta name="twitter:image" content="YOUR_PROFILE_PHOTO_URL">
+    <meta name="twitter:image" content="https://tarun-sr.github.io/tarun-sr-portfolio/Blue-suite.png">
 
     <!-- THEME COLOR (browser tab color on mobile) -->
     <meta name="theme-color" content="#00F5FF">
@@ -39,7 +39,7 @@
     <link rel="icon" type="image/png" href="favicon.png">
 
     <!-- CANONICAL URL -->
-    <link rel="canonical" href="YOUR_PORTFOLIO_URL">
+    <link rel="canonical" href="https://tarun-sr.github.io/tarun-sr-portfolio/">
 
     <!-- STRUCTURED DATA — Google Rich Results -->
     <script type="application/ld+json">
@@ -49,7 +49,7 @@
         "name": "Tarun S R",
         "jobTitle": "SDET & QA Automation Engineer",
         "description": "QA Automation Engineer with 1.8+ years experience in Playwright, Selenium, Appium, Python and API Testing across Fintech and EdTech domains.",
-        "url": "YOUR_PORTFOLIO_URL",
+        "url": "https://tarun-sr.github.io/tarun-sr-portfolio/",
         "email": "tarunsr3024@gmail.com",
         "telephone": "+918147021751",
         "address": {
@@ -2975,14 +2975,28 @@
 
         @media(max-width: 900px) {
             .hero-photo-ring {
-                width: 180px;
-                height: 180px;
+                width: 160px;
+                height: 160px;
             }
 
             .hero-inner {
-                gap: 40px;
+                gap: 30px;
                 flex-direction: column-reverse;
+                padding-top: 80px;
             }
+
+            .hero {
+                height: auto;
+                min-height: 100vh;
+                padding-top: 90px;
+                padding-bottom: 60px;
+                align-items: flex-start;
+            }
+        }
+
+        /* FIX SCROLL OFFSET — fixed nav blocks section headings */
+        section {
+            scroll-margin-top: 80px;
         }
     </style>
 
