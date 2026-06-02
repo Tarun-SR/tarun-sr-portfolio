@@ -2,113 +2,369 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 | Tarun SR</title>
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 — Page Not Found | Tarun S R</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Poppins", sans-serif;
+        :root {
+            --bg:        #050816;
+            --primary:   #00F5FF;
+            --secondary: #A855F7;
+            --text:      #E2E8F0;
+            --muted:     #94A3B8;
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            color: var(--text);
             min-height: 100vh;
-            background: #0f172a;
-            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 20px;
+            overflow: hidden;
+            position: relative;
         }
 
+        /* PARTICLE CANVAS */
+        #particleCanvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.45;
+        }
+
+        /* BG GLOW BLOBS */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::before {
+            width: 500px; height: 500px;
+            background: var(--primary);
+            opacity: 0.05;
+            top: -150px; left: -150px;
+        }
+
+        body::after {
+            width: 400px; height: 400px;
+            background: var(--secondary);
+            opacity: 0.06;
+            bottom: -100px; right: -100px;
+        }
+
+        /* MAIN CONTAINER */
         .container {
-            max-width: 700px;
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px 24px;
+            max-width: 600px;
         }
 
+        /* 404 BIG NUMBER */
         .error-code {
-            font-size: 8rem;
+            font-size: clamp(100px, 20vw, 160px);
             font-weight: 800;
-            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            line-height: 1;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            animation: floatCode 4s ease-in-out infinite;
+            letter-spacing: -4px;
         }
 
+        @keyframes floatCode {
+            0%, 100% { transform: translateY(0);    }
+            50%       { transform: translateY(-12px); }
+        }
+
+        /* BUG ICON */
+        .bug-icon {
+            font-size: 52px;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: bugWiggle 2s ease-in-out infinite;
+        }
+
+        @keyframes bugWiggle {
+            0%, 100% { transform: rotate(0deg)   scale(1);    }
+            25%       { transform: rotate(-8deg)  scale(1.05); }
+            75%       { transform: rotate(8deg)   scale(1.05); }
+        }
+
+        /* HEADING */
         h1 {
-            margin-bottom: 15px;
-            font-size: 2rem;
+            font-size: clamp(22px, 4vw, 30px);
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text);
         }
 
-        p {
-            color: #cbd5e1;
+        /* FUNNY QA MESSAGE */
+        .message {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .message strong {
+            color: var(--primary);
+        }
+
+        /* QUOTE CARD */
+        .quote-card {
+            margin: 28px auto;
+            padding: 20px 28px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(0,245,255,0.15);
+            border-radius: 16px;
+            font-size: 14px;
+            color: var(--muted);
+            font-style: italic;
             line-height: 1.7;
-            margin-bottom: 30px;
+            max-width: 480px;
+            position: relative;
+        }
+
+        .quote-card::before {
+            content: '"';
+            position: absolute;
+            top: -18px;
+            left: 20px;
+            font-size: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            opacity: 0.7;
+        }
+
+        /* BUTTONS */
+        .btn-group {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 32px;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            text-decoration: none;
-            color: white;
-            background: linear-gradient(135deg, #3b82f6, #6366f1);
             padding: 14px 28px;
-            border-radius: 12px;
-            transition: 0.3s ease;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .btn:hover {
             transform: translateY(-3px);
         }
 
-        .icon {
-            font-size: 80px;
-            color: #38bdf8;
-            margin-bottom: 20px;
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #000;
+            box-shadow: 0 6px 24px rgba(0,245,255,0.3);
         }
 
-        .quote {
-            margin-top: 30px;
-            font-style: italic;
-            color: #94a3b8;
+        .btn-primary:hover {
+            box-shadow: 0 10px 32px rgba(0,245,255,0.45);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.06);
+            color: var(--text);
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(0,245,255,0.3);
+            box-shadow: 0 6px 20px rgba(0,245,255,0.1);
+        }
+
+        /* STATUS TAGS */
+        .status-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 28px;
+        }
+
+        .status-tag {
+            font-size: 12px;
+            padding: 5px 14px;
+            border-radius: 20px;
+            background: rgba(0,245,255,0.07);
+            border: 1px solid rgba(0,245,255,0.15);
+            color: var(--muted);
+        }
+
+        .status-tag span {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* BACK LINK */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 24px;
+            font-size: 13px;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover { color: var(--primary); }
+
+        /* RESPONSIVE */
+        @media(max-width: 480px) {
+            .btn-group { flex-direction: column; align-items: center; }
+            .btn { width: 100%; justify-content: center; }
         }
     </style>
 </head>
 
 <body>
 
+    <!-- PARTICLE CANVAS -->
+    <canvas id="particleCanvas"></canvas>
+
     <div class="container">
 
-        <i class='bx bx-bug icon'></i>
+        <!-- BUG ICON -->
+        <div class="bug-icon">🐛</div>
 
+        <!-- 404 NUMBER -->
         <div class="error-code">404</div>
 
-        <h1>Bug Found... But Not in My Test Cases 😄</h1>
+        <!-- HEADING -->
+        <h1>Oops! This Page Has a Bug</h1>
 
-        <p>
-            Looks like the page you're trying to access doesn't exist.
-            As a QA Engineer, I usually find bugs before users do —
-            but this one seems to have escaped into production.
+        <!-- MESSAGE -->
+        <p class="message">
+            Looks like this URL slipped past my test cases.<br>
+            Don't worry — <strong>I caught it before it reached production.</strong>
         </p>
 
-        <a href="index.html" class="btn">
-            <i class='bx bx-home'></i>
-            Back to Portfolio
-        </a>
-
-        <div class="quote">
-            "Every bug is an opportunity to improve quality."
-            <br><br>
-            — Tarun SR | QA Engineer
+        <!-- QA QUOTE -->
+        <div class="quote-card">
+            "A QA engineer walks into a bar. Orders 0 beers. Orders 1 beer.
+            Orders -1 beer. Orders 999999 beers. Orders a lizard.
+            The bartender says: <strong>404 — beer not found.</strong>"
         </div>
+
+        <!-- BUTTONS -->
+        <div class="btn-group">
+            <a href="https://tarun-sr.github.io/tarun-sr-portfolio/" class="btn btn-primary">
+                <i class='bx bx-home'></i>
+                Back to Portfolio
+            </a>
+            <a href="https://tarun-sr.github.io/tarun-sr-portfolio/#contact" class="btn btn-secondary">
+                <i class='bx bx-envelope'></i>
+                Report This Bug
+            </a>
+        </div>
+
+        <!-- STATUS TAGS -->
+        <div class="status-row">
+            <span class="status-tag">Status: <span>404</span></span>
+            <span class="status-tag">Severity: <span>Medium</span></span>
+            <span class="status-tag">Assigned to: <span>Tarun S R</span></span>
+        </div>
+
+        <!-- BACK LINK -->
+        <a href="https://tarun-sr.github.io/tarun-sr-portfolio/" class="back-link">
+            <i class='bx bx-arrow-back'></i> Go back to home
+        </a>
 
     </div>
 
-</body>
+    <script>
+        // PARTICLE BACKGROUND — same as portfolio
+        const canvas = document.getElementById('particleCanvas');
+        const ctx    = canvas.getContext('2d');
+        let W = canvas.width  = window.innerWidth;
+        let H = canvas.height = window.innerHeight;
+        let particles = [];
 
+        window.addEventListener('resize', () => {
+            W = canvas.width  = window.innerWidth;
+            H = canvas.height = window.innerHeight;
+            initParticles();
+        });
+
+        function randomBetween(a, b) { return a + Math.random() * (b - a); }
+
+        function createParticle() {
+            return {
+                x: randomBetween(0, W), y: randomBetween(0, H),
+                r: randomBetween(0.4, 1.6),
+                speedX: randomBetween(-0.08, 0.08),
+                speedY: randomBetween(-0.12, -0.04),
+                alpha: randomBetween(0.2, 0.9),
+                flicker: randomBetween(0.003, 0.008),
+                flickerDir: 1,
+                color: Math.random() > 0.85 ? 'rgba(168,85,247,' : 'rgba(200,230,255,'
+            };
+        }
+
+        function initParticles() {
+            particles = Array.from({ length: Math.floor((W * H) / 7000) }, createParticle);
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, W, H);
+            particles.forEach(p => {
+                p.alpha += p.flicker * p.flickerDir;
+                if (p.alpha >= 0.9 || p.alpha <= 0.1) p.flickerDir *= -1;
+                p.x += p.speedX;
+                p.y += p.speedY;
+                if (p.y < -2) p.y = H + 2;
+                if (p.x < -2) p.x = W + 2;
+                if (p.x > W + 2) p.x = -2;
+                const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 3);
+                grd.addColorStop(0, p.color + p.alpha + ')');
+                grd.addColorStop(1, p.color + '0)');
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2);
+                ctx.fillStyle = grd;
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = p.color + p.alpha + ')';
+                ctx.fill();
+            });
+            requestAnimationFrame(drawParticles);
+        }
+
+        initParticles();
+        drawParticles();
+    </script>
+
+</body>
 </html>
