@@ -104,6 +104,12 @@
             overflow-x: hidden;
         }
 
+        :root {
+            --scroll-offset: 0px;
+            --tilt-x: 0deg;
+            --tilt-y: 0deg;
+        }
+
         body::before {
             content: '';
             position: fixed;
@@ -115,6 +121,7 @@
             top: -200px;
             left: -200px;
             z-index: -1;
+            transform: translateY(calc(var(--scroll-offset) * 0.15));
         }
 
         body::after {
@@ -128,6 +135,7 @@
             bottom: -250px;
             right: -200px;
             z-index: -1;
+            transform: translateY(calc(var(--scroll-offset) * -0.12));
         }
 
         section {
@@ -169,6 +177,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 22px 10%;
+            -webkit-backdrop-filter: blur(16px);
             backdrop-filter: blur(16px);
             background: rgba(0, 0, 0, 0.35);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -317,6 +326,7 @@
             border: 1px solid rgba(255, 255, 255, 0.15);
             color: white;
             background: rgba(255, 255, 255, 0.04);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
         }
 
@@ -329,6 +339,7 @@
         .glass {
             background: var(--card);
             border: 1px solid var(--border);
+            -webkit-backdrop-filter: blur(18px);
             backdrop-filter: blur(18px);
             border-radius: 24px;
             transition: 0.4s;
@@ -388,7 +399,7 @@
         }
 
         .about-flip-card:hover .about-front {
-            transform: translateY(-6px);
+            transform: translateY(-6px) perspective(700px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
         }
 
         /* POPUP OVERLAY */
@@ -400,6 +411,7 @@
             position: fixed;
             inset: 0;
             background: rgba(0, 0, 0, 0.0);
+            -webkit-backdrop-filter: blur(0px);
             backdrop-filter: blur(0px);
             z-index: 9999;
             justify-content: center;
@@ -415,6 +427,7 @@
             visibility: visible;
             pointer-events: all;
             background: rgba(0, 0, 0, 0.65);
+            -webkit-backdrop-filter: blur(8px);
             backdrop-filter: blur(8px);
             transition:
                 background 0.35s ease,
@@ -460,6 +473,7 @@
 
         .popup-overlay.closing {
             background: rgba(0, 0, 0, 0.0);
+            -webkit-backdrop-filter: blur(0px);
             backdrop-filter: blur(0px);
             transition:
                 background 0.28s ease,
@@ -698,6 +712,15 @@
             color: #475569;
         }
 
+        .skill-card,
+        .project-card,
+        .contact-card,
+        .cert-card,
+        .testimonial-card,
+        .stat-card {
+            will-change: transform;
+        }
+
         /* SKILLS */
 
         .skills-grid {
@@ -732,7 +755,7 @@
         }
 
         .skill-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-8px) perspective(700px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
             border-color: rgba(0, 245, 255, 0.3);
             box-shadow: 0 20px 50px rgba(0, 245, 255, 0.1);
         }
@@ -829,6 +852,122 @@
             background: rgba(255, 255, 255, 0.1);
             box-shadow: 0 0 14px rgba(255, 255, 255, 0.08);
             transform: translateY(-3px) scale(1.05);
+        }
+
+        /* TAG ICONS */
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .tag-logo {
+            width: 14px;
+            height: 14px;
+            margin-right: 7px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .tag-icon-glyph {
+            font-size: 15px;
+            margin-right: 6px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .tag:hover .tag-logo,
+        .tag:hover .tag-icon-glyph {
+            transform: scale(1.2) rotate(-8deg);
+        }
+
+        /* SKILLS MARQUEE */
+
+        .skills-hint {
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: -30px;
+            margin-bottom: 50px;
+        }
+
+        .marquee-outer {
+            position: relative;
+            overflow: hidden;
+            -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+            margin-bottom: 22px;
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 20px;
+            width: max-content;
+            animation: marqueeScroll 46s linear infinite;
+        }
+
+        .marquee-track.reverse {
+            animation-direction: reverse;
+            animation-duration: 52s;
+        }
+
+        .marquee-outer:hover .marquee-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes marqueeScroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        .skill-tile {
+            flex-shrink: 0;
+            width: 140px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px 14px;
+            text-align: center;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-tile:hover {
+            transform: translateY(-6px);
+            border-color: rgba(0, 245, 255, 0.35);
+            box-shadow: 0 14px 34px rgba(0, 245, 255, 0.12);
+        }
+
+        .skill-tile img {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 12px;
+        }
+
+        .skill-tile i {
+            display: block;
+            font-size: 34px;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .skill-tile span {
+            display: block;
+            font-size: 12px;
+            letter-spacing: 0.02em;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        @media (max-width: 720px) {
+            .skill-tile {
+                width: 116px;
+                padding: 18px 10px;
+            }
         }
 
         /* TIMELINE */
@@ -1058,6 +1197,170 @@
             right: auto;
         }
 
+        /* QA PIPELINE */
+
+        #qa-flow {
+            padding: 0 10% 60px;
+        }
+
+        .qa-pipeline {
+            padding: 40px;
+            text-align: center;
+        }
+
+        .qa-pipeline-label {
+            font-size: 13px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 28px;
+        }
+
+        .qa-pipeline-track {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .qa-stage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100px;
+        }
+
+        .qa-stage span {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .qa-stage-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .qa-stage:hover .qa-stage-icon {
+            transform: translateY(-4px) scale(1.08);
+        }
+
+        .qa-stage-neutral {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--muted);
+        }
+
+        .qa-stage-cyan {
+            background: rgba(0, 245, 255, 0.1);
+            border: 1px solid rgba(0, 245, 255, 0.25);
+            color: var(--primary);
+        }
+
+        .qa-stage:hover .qa-stage-cyan {
+            box-shadow: 0 0 18px rgba(0, 245, 255, 0.35);
+        }
+
+        .qa-stage-danger {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+        }
+
+        .qa-stage:hover .qa-stage-danger {
+            box-shadow: 0 0 18px rgba(239, 68, 68, 0.35);
+        }
+
+        .qa-stage-purple {
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            color: var(--secondary);
+        }
+
+        .qa-stage:hover .qa-stage-purple {
+            box-shadow: 0 0 18px rgba(168, 85, 247, 0.35);
+        }
+
+        .qa-stage-success {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #4ade80;
+        }
+
+        .qa-stage:hover .qa-stage-success {
+            box-shadow: 0 0 18px rgba(34, 197, 94, 0.35);
+        }
+
+        .qa-arrow {
+            font-size: 20px;
+            color: var(--muted);
+            margin-top: 12px;
+            flex-shrink: 0;
+        }
+
+        .qa-pipeline-line {
+            position: relative;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 24px 60px 0;
+            border-radius: 2px;
+        }
+
+        .qa-pipeline-dot {
+            position: absolute;
+            top: -5px;
+            left: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 245, 255, 0.15), 0 0 20px var(--primary);
+            animation: qaFlow 5s ease-in-out infinite;
+        }
+
+        @keyframes qaFlow {
+
+            0% {
+                left: 0%;
+                opacity: 0;
+            }
+
+            8% {
+                opacity: 1;
+            }
+
+            92% {
+                opacity: 1;
+            }
+
+            100% {
+                left: calc(100% - 12px);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .qa-pipeline-track {
+                gap: 4px;
+            }
+
+            .qa-arrow {
+                display: none;
+            }
+
+            .qa-pipeline-line {
+                margin: 24px 20px 0;
+            }
+        }
+
         /* PROJECTS */
 
         .projects-grid {
@@ -1094,7 +1397,7 @@
         }
 
         .project-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-8px) perspective(700px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
             border-color: rgba(0, 245, 255, 0.3);
             box-shadow: 0 24px 60px rgba(0, 245, 255, 0.1);
         }
@@ -1306,7 +1609,7 @@
         }
 
         .contact-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-8px) perspective(700px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
             border-color: rgba(0, 245, 255, 0.3);
             box-shadow: 0 20px 50px rgba(0, 245, 255, 0.1);
         }
@@ -1606,7 +1909,7 @@
         }
 
         .cert-card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-6px) perspective(700px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
             border-color: rgba(0, 245, 255, 0.25);
             box-shadow: 0 16px 40px rgba(0, 245, 255, 0.08);
         }
@@ -2504,6 +2807,7 @@
             width: 100%;
             height: 100%;
             background: rgba(5, 8, 22, 0.97);
+            -webkit-backdrop-filter: blur(20px);
             backdrop-filter: blur(20px);
             z-index: 1050;
             flex-direction: column;
@@ -2727,6 +3031,7 @@
                 padding: 0;
                 background: transparent;
                 border: none;
+                -webkit-backdrop-filter: none;
                 backdrop-filter: none;
                 box-shadow: none;
             }
@@ -2932,6 +3237,8 @@
         .hero-photo-wrap {
             position: relative;
             flex-shrink: 0;
+            transition: transform 0.15s ease-out;
+            will-change: transform;
         }
 
         .hero-photo-ring {
@@ -3183,15 +3490,15 @@
 
             <!-- CARD 3 -->
 
-            <div class="about-flip-card" onclick="openPopup('tools')" data-aos="fade-left">
+            <div class="about-flip-card" onclick="openPopup('ai')" data-aos="fade-left">
 
                 <div class="about-flip-inner">
 
                     <div class="glass about-card about-front">
 
-                        <i class='bx bx-data'></i>
+                        <i class='bx bx-brain'></i>
 
-                        <h3>Domain Expertise</h3>
+                        <h3>AI-Augmented Testing</h3>
 
                         <p>Click to explore more</p>
 
@@ -3232,7 +3539,7 @@
             </div>
 
             <div class="glass stat-card edu-card">
-                <i class='bx bx-graduation'></i>
+                <i class='bx bxs-graduation'></i>
                 <h3>MCA</h3>
                 <p>CMR Institute of Technology</p>
                 <span class="edu-meta">Bengaluru &nbsp;·&nbsp; 8.8 CGPA &nbsp;·&nbsp; 2021–2023</span>
@@ -3249,91 +3556,77 @@
 
     </section>
 
+    <!-- QA PIPELINE -->
+
+    <section id="qa-flow">
+
+        <div class="glass qa-pipeline" data-aos="fade-up">
+
+            <p class="qa-pipeline-label">How I build quality in</p>
+
+            <div class="qa-pipeline-track">
+
+                <div class="qa-stage">
+                    <div class="qa-stage-icon qa-stage-neutral"><i class='bx bx-code-alt'></i></div>
+                    <span>Code</span>
+                </div>
+
+                <i class='bx bx-chevron-right qa-arrow'></i>
+
+                <div class="qa-stage">
+                    <div class="qa-stage-icon qa-stage-cyan"><i class='bx bx-search-alt'></i></div>
+                    <span>Test</span>
+                </div>
+
+                <i class='bx bx-chevron-right qa-arrow'></i>
+
+                <div class="qa-stage">
+                    <div class="qa-stage-icon qa-stage-danger"><i class='bx bx-bug'></i></div>
+                    <span>Bug found</span>
+                </div>
+
+                <i class='bx bx-chevron-right qa-arrow'></i>
+
+                <div class="qa-stage">
+                    <div class="qa-stage-icon qa-stage-purple"><i class='bx bx-wrench'></i></div>
+                    <span>Fix</span>
+                </div>
+
+                <i class='bx bx-chevron-right qa-arrow'></i>
+
+                <div class="qa-stage">
+                    <div class="qa-stage-icon qa-stage-success"><i class='bx bx-check-circle'></i></div>
+                    <span>Pass</span>
+                </div>
+
+            </div>
+
+            <div class="qa-pipeline-line">
+                <div class="qa-pipeline-dot"></div>
+            </div>
+
+        </div>
+
+    </section>
+
     <!-- SKILLS -->
 
     <section id="skills">
 
         <h2 data-aos="fade-up">Technical Skills</h2>
 
-        <div class="skills-grid">
+        <p class="skills-hint" data-aos="fade-up">Tools & platforms across automation, API testing, and AI-assisted QA</p>
 
-            <!-- CARD 1 — Automation -->
-            <div class="glass skill-card" data-aos="fade-up" data-aos-delay="0">
-                <div class="skill-card-header">
-                    <i class='bx bx-bot'></i>
-                    <h3>Automation Testing</h3>
-                </div>
-                <div class="skill-tags">
-                    <span class="tag">Playwright</span>
-                    <span class="tag">Selenium</span>
-                    <span class="tag">Appium</span>
-                    <span class="tag">Pytest</span>
-                    <span class="tag">POM</span>
-                    <span class="tag">Prefect</span>
-                    <span class="tag">Allure Reports</span>
-                    <span class="tag">HTML Reports</span>
-                </div>
-            </div>
+        <div class="marquee-outer" data-aos="fade-up">
+            <div class="marquee-track" id="marqueeRow1"></div>
+        </div>
 
-            <!-- CARD 2 — API & Manual -->
-            <div class="glass skill-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="skill-card-header">
-                    <i class='bx bx-transfer-alt'></i>
-                    <h3>API & Manual Testing</h3>
-                </div>
-                <div class="skill-tags">
-                    <span class="tag">Postman</span>
-                    <span class="tag">REST APIs</span>
-                    <span class="tag tag-neutral">E2E Testing</span>
-                    <span class="tag tag-neutral">Regression</span>
-                    <span class="tag tag-neutral">Smoke & Sanity</span>
-                    <span class="tag tag-neutral">UAT</span>
-                </div>
-            </div>
+        <div class="marquee-outer" data-aos="fade-up">
+            <div class="marquee-track reverse" id="marqueeRow2"></div>
+        </div>
 
-            <!-- CARD 3 — Languages -->
-            <div class="glass skill-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="skill-card-header">
-                    <i class='bx bx-code-curly'></i>
-                    <h3>Languages</h3>
-                </div>
-                <div class="skill-tags">
-                    <span class="tag tag-purple">Python</span>
-                    <span class="tag tag-purple">SQL</span>
-                </div>
-            </div>
-
-            <!-- CARD 4 — Tools & Platforms -->
-            <div class="glass skill-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="skill-card-header">
-                    <i class='bx bx-wrench'></i>
-                    <h3>Tools & Platforms</h3>
-                </div>
-                <div class="skill-tags">
-                    <span class="tag tag-neutral">JIRA</span>
-                    <span class="tag tag-neutral">GitHub</span>
-                    <span class="tag tag-neutral">Azure</span>
-                    <span class="tag tag-neutral">Agile / Scrum</span>
-                    <span class="tag tag-neutral">Xcode</span>
-                    <span class="tag tag-neutral">Appium Inspector</span>
-                </div>
-            </div>
-
-            <!-- CARD 5 — Domains -->
-            <div class="glass skill-card" data-aos="fade-up" data-aos-delay="400">
-                <div class="skill-card-header">
-                    <i class='bx bx-buildings'></i>
-                    <h3>Domain Experience</h3>
-                </div>
-                <div class="skill-tags">
-                    <span class="tag">Fintech</span>
-                    <span class="tag">EdTech</span>
-                    <span class="tag tag-neutral">Web</span>
-                    <span class="tag tag-neutral">Mobile (APK- Android, IOS)</span>
-                    <!-- <span class="tag tag-neutral">Data Pipelines</span> -->
-                </div>
-            </div>
-
+        <div class="marquee-outer" data-aos="fade-up">
+            <div class="marquee-track" id="marqueeRow3"></div>
         </div>
 
     </section>
@@ -3845,8 +4138,8 @@
     </section>
 
     <!-- BACK TO TOP -->
-    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-        <i class='bx bx-chevron-up'></i>
+    <button class="back-to-top" id="backToTop" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <i class='bx bx-chevron-up' aria-hidden="true"></i>
     </button>
 
     <!-- FUNNY TOAST -->
@@ -3899,7 +4192,7 @@
 
             <div class="popup-header">
                 <h3 id="popupTitle"></h3>
-                <button class="popup-close" onclick="closePopup()">✕</button>
+                <button class="popup-close" onclick="closePopup()" aria-label="Close">✕</button>
             </div>
 
             <div class="popup-body" id="popupBody"></div>
@@ -4017,20 +4310,24 @@ ${message}`;
                     }
                 ]
             },
-            tools: {
-                title: '🛠️ Domain Expertise',
+            ai: {
+                title: '🧠 AI-Augmented Testing',
                 items: [
                     {
-                        title: '✔ Fintech Domain',
-                        desc: 'Loan collection platforms, LMS modules, payment workflows & role-based banking operations at M2P Fintech'
+                        title: '✔ Test Case Documentation',
+                        desc: 'Used ChatGPT & Claude to convert requirements into structured test case documents — covering positive, negative & edge scenarios faster while keeping full team traceability.'
                     },
                     {
-                        title: '✔ EdTech Domain',
-                        desc: 'Learning management systems, data reporting pipelines & role-based web apps at Focus Edumatics'
+                        title: '✔ Bug Report Writing',
+                        desc: 'Leveraged AI to draft clear, reproducible bug reports (steps to reproduce, expected vs actual, severity) — cutting documentation time and improving dev hand-off quality.'
                     },
                     {
-                        title: '✔ Testing Scope',
-                        desc: 'Web · Mobile (APK) · API · Data Warehouse — across both domains end-to-end'
+                        title: '✔ Automation Scripting',
+                        desc: 'Used GitHub Copilot to accelerate Playwright & Selenium script writing at M2P Fintech and Focus Edumatics — scaffolding boilerplate and speeding up POM implementation.'
+                    },
+                    {
+                        title: '✔ End-to-End Framework Building',
+                        desc: 'Collaborated with ChatGPT, Copilot & Claude across the full framework lifecycle — architecture decisions, utility functions, debugging & reporting — building hybrid automation frameworks end-to-end faster.'
                     }
                 ]
             }
@@ -4154,11 +4451,28 @@ ${message}`;
         const themeIcon = document.getElementById('themeIcon');
         const themeLabel = document.getElementById('themeLabel');
 
+        // 14. TAG LOGO COLORS (theme-aware)
+
+        function updateTagLogos() {
+            const isLight = document.body.classList.contains('light-mode');
+            const colors = isLight
+                ? { tag: '0369a1', purple: '6d28d9', neutral: '334155' }
+                : { tag: '00F5FF', purple: 'c084fc', neutral: '94A3B8' };
+            document.querySelectorAll('.tag-logo[data-slug]').forEach(img => {
+                const parent = img.closest('.tag');
+                let color = colors.tag;
+                if (parent.classList.contains('tag-purple')) color = colors.purple;
+                else if (parent.classList.contains('tag-neutral')) color = colors.neutral;
+                img.src = `https://cdn.simpleicons.org/${img.dataset.slug}/${color}`;
+            });
+        }
+
         function toggleTheme() {
             const isLight = document.body.classList.toggle('light-mode');
             themeIcon.innerHTML = isLight ? "<i class='bx bx-sun'></i>" : "<i class='bx bx-moon'></i>";
             themeLabel.textContent = isLight ? 'Light' : 'Dark';
             localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            updateTagLogos();
         }
 
         // Restore saved preference on load
@@ -4168,6 +4482,7 @@ ${message}`;
                 if (themeIcon) themeIcon.innerHTML = "<i class='bx bx-sun'></i>";
                 if (themeLabel) themeLabel.textContent = 'Light';
             }
+            updateTagLogos();
         });
 
     </script>
@@ -4405,6 +4720,128 @@ ${message}`;
         document.addEventListener('mouseenter', () => {
             dot.style.opacity = '1';
             ring.style.opacity = '1';
+        });
+
+        // 7A. 3D TILT + PARALLAX (skipped for touch devices / reduced motion)
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const supportsFineHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+        if (!prefersReducedMotion && supportsFineHover) {
+
+            // Card tilt
+            const MAX_TILT = 6;
+            const tiltCards = document.querySelectorAll('.skill-card, .project-card, .contact-card, .cert-card, .about-front');
+
+            tiltCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const px = (e.clientX - rect.left) / rect.width - 0.5;
+                    const py = (e.clientY - rect.top) / rect.height - 0.5;
+                    card.style.setProperty('--tilt-x', (py * -MAX_TILT * 2).toFixed(2) + 'deg');
+                    card.style.setProperty('--tilt-y', (px * MAX_TILT * 2).toFixed(2) + 'deg');
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.setProperty('--tilt-x', '0deg');
+                    card.style.setProperty('--tilt-y', '0deg');
+                });
+            });
+
+            // Hero photo parallax
+            const heroSection = document.querySelector('.hero');
+            const heroPhoto = document.querySelector('.hero-photo-wrap');
+
+            if (heroSection && heroPhoto) {
+                heroSection.addEventListener('mousemove', (e) => {
+                    const rect = heroSection.getBoundingClientRect();
+                    const px = (e.clientX - rect.left) / rect.width - 0.5;
+                    const py = (e.clientY - rect.top) / rect.height - 0.5;
+                    heroPhoto.style.transform = `translate(${px * 18}px, ${py * 18}px)`;
+                });
+                heroSection.addEventListener('mouseleave', () => {
+                    heroPhoto.style.transform = 'translate(0px, 0px)';
+                });
+            }
+        }
+
+        // 7C. SKILLS MARQUEE
+
+        (function initSkillsMarquee() {
+            const logo = (slug, label) => ({ type: 'logo', slug, label });
+            const icon = (cls, label) => ({ type: 'icon', icon: cls, label });
+
+            const row1 = [
+                icon('bx-play-circle', 'Playwright'),
+                logo('selenium', 'Selenium'),
+                logo('appium', 'Appium'),
+                logo('pytest', 'Pytest'),
+                icon('bx-layer', 'POM'),
+                logo('prefect', 'Prefect'),
+                icon('bx-bar-chart-alt-2', 'Allure Reports'),
+                icon('bx-file-blank', 'HTML Reports'),
+                logo('postman', 'Postman'),
+                icon('bx-transfer-alt', 'REST APIs'),
+                icon('bx-list-check', 'E2E Testing')
+            ];
+
+            const row2 = [
+                icon('bx-refresh', 'Regression'),
+                icon('bx-check-shield', 'Smoke & Sanity'),
+                icon('bx-user-check', 'UAT'),
+                logo('python', 'Python'),
+                icon('bx-data', 'SQL'),
+                logo('jira', 'JIRA'),
+                logo('github', 'GitHub'),
+                icon('bx-cloud', 'Azure'),
+                icon('bx-repeat', 'Agile / Scrum'),
+                logo('xcode', 'Xcode'),
+                logo('appium', 'Appium Inspector')
+            ];
+
+            const row3 = [
+                icon('bx-credit-card', 'Fintech'),
+                icon('bx-book-open', 'EdTech'),
+                icon('bx-globe', 'Web'),
+                icon('bx-mobile-alt', 'Mobile'),
+                icon('bx-message-rounded-dots', 'ChatGPT'),
+                logo('githubcopilot', 'GitHub Copilot'),
+                logo('claude', 'Claude'),
+                icon('bx-edit-alt', 'Prompt Engineering'),
+                icon('bx-task', 'AI-Assisted Test Design'),
+                icon('bx-code-alt', 'AI-Assisted Automation Scripting')
+            ];
+
+            function buildRow(elId, tools) {
+                const el = document.getElementById(elId);
+                if (!el) return;
+                [...tools, ...tools].forEach(t => {
+                    const tile = document.createElement('div');
+                    tile.className = 'skill-tile';
+                    const media = t.type === 'logo'
+                        ? `<img src="https://cdn.simpleicons.org/${t.slug}" alt="" loading="lazy">`
+                        : `<i class='bx ${t.icon}'></i>`;
+                    tile.innerHTML = `${media}<span>${t.label}</span>`;
+                    el.appendChild(tile);
+                });
+            }
+
+            buildRow('marqueeRow1', row1);
+            buildRow('marqueeRow2', row2);
+            buildRow('marqueeRow3', row3);
+        })();
+
+        // 7B. SCROLL PARALLAX (background blobs)
+
+        let scrollTicking = false;
+
+        window.addEventListener('scroll', () => {
+            if (!scrollTicking) {
+                requestAnimationFrame(() => {
+                    document.documentElement.style.setProperty('--scroll-offset', window.scrollY + 'px');
+                    scrollTicking = false;
+                });
+                scrollTicking = true;
+            }
         });
 
         // 7. PARTICLE / STAR BACKGROUND
