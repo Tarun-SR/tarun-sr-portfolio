@@ -138,6 +138,35 @@
             transform: translateY(calc(var(--scroll-offset) * -0.12));
         }
 
+        .grid-floor {
+            position: fixed;
+            left: -30%;
+            right: -30%;
+            bottom: -35%;
+            height: 90vh;
+            background-image:
+                linear-gradient(rgba(0, 245, 255, 0.14) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 255, 0.14) 1px, transparent 1px);
+            background-size: 56px 56px;
+            transform: perspective(500px) rotateX(78deg) translateY(calc(var(--scroll-offset) * 0.04));
+            transform-origin: bottom;
+            -webkit-mask-image: linear-gradient(to top, black, transparent 65%);
+            mask-image: linear-gradient(to top, black, transparent 65%);
+            opacity: 0.5;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        body.light-mode .grid-floor {
+            opacity: 0.25;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .grid-floor {
+                transform: perspective(500px) rotateX(78deg);
+            }
+        }
+
         section {
             padding: 110px 10%;
         }
@@ -234,6 +263,35 @@
 
         .nav-links a:hover {
             color: var(--primary);
+        }
+
+        .nav-test-link {
+            display: flex !important;
+            align-items: center;
+            gap: 7px;
+            font-family: 'JetBrains Mono', monospace !important;
+            font-size: 13px !important;
+        }
+
+        .nav-test-icon {
+            font-size: 14px;
+            color: #4ade80;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-test-link.running .nav-test-icon {
+            color: var(--primary);
+            animation: navSpin 0.6s linear infinite;
+        }
+
+        @keyframes navSpin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         /* HERO */
@@ -712,7 +770,6 @@
             color: #475569;
         }
 
-        .skill-card,
         .project-card,
         .contact-card,
         .cert-card,
@@ -721,164 +778,106 @@
             will-change: transform;
         }
 
-        /* SKILLS */
+        /* SKILLS MARQUEE (styles below) */
 
-        .skills-grid {
+        /* TEST DASHBOARD */
+
+        .dash-metrics {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 22px;
+            margin-bottom: 30px;
         }
 
-        .skill-card {
-            padding: 35px;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+        .dash-metric {
+            padding: 26px;
+            text-align: center;
         }
 
-        .skill-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.45s ease;
-            border-radius: 24px 24px 0 0;
-        }
-
-        .skill-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .skill-card:hover {
-            transform: translateY(-8px) perspective(700px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
-            border-color: rgba(0, 245, 255, 0.3);
-            box-shadow: 0 20px 50px rgba(0, 245, 255, 0.1);
-        }
-
-        .skill-card-header {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 22px;
-        }
-
-        .skill-card-header i {
-            font-size: 28px;
+        .dash-metric h3 {
+            font-size: 32px;
+            font-weight: 700;
             color: var(--primary);
-            background: rgba(0, 245, 255, 0.08);
-            border: 1px solid rgba(0, 245, 255, 0.15);
-            border-radius: 12px;
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
+            margin-bottom: 6px;
         }
 
-        .skill-card-header h3 {
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .skill-tags {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        /* TAG BASE */
-
-        .tag {
-            padding: 8px 16px;
-            border-radius: 40px;
+        .dash-metric p {
             font-size: 13px;
-            font-weight: 500;
-            cursor: default;
-            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-            opacity: 0;
-            transform: translateY(12px) scale(0.92);
-        }
-
-        .tag.tag-visible {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            transition:
-                opacity 0.35s ease,
-                transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1),
-                box-shadow 0.25s ease,
-                background 0.25s ease;
-        }
-
-        /* PRIMARY TAG (cyan) */
-        .tag {
-            background: rgba(0, 245, 255, 0.1);
-            border: 1px solid rgba(0, 245, 255, 0.22);
-            color: var(--primary);
-        }
-
-        .tag:hover {
-            background: rgba(0, 245, 255, 0.2);
-            box-shadow: 0 0 14px rgba(0, 245, 255, 0.25);
-            transform: translateY(-3px) scale(1.05);
-        }
-
-        /* SECONDARY TAG (purple) */
-        .tag-purple {
-            background: rgba(168, 85, 247, 0.1);
-            border: 1px solid rgba(168, 85, 247, 0.25);
-            color: #c084fc;
-        }
-
-        .tag-purple:hover {
-            background: rgba(168, 85, 247, 0.2);
-            box-shadow: 0 0 14px rgba(168, 85, 247, 0.25);
-            transform: translateY(-3px) scale(1.05);
-        }
-
-        /* NEUTRAL TAG (white/muted) */
-        .tag-neutral {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.12);
             color: var(--muted);
         }
 
-        .tag-neutral:hover {
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 14px rgba(255, 255, 255, 0.08);
-            transform: translateY(-3px) scale(1.05);
+        .dash-panel {
+            padding: 28px 30px;
         }
 
-        /* TAG ICONS */
-
-        .tag {
-            display: inline-flex;
+        .dash-panel-header {
+            display: flex;
             align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
-        .tag-logo {
-            width: 14px;
-            height: 14px;
-            margin-right: 7px;
-            display: inline-block;
-            transition: transform 0.3s ease;
-        }
-
-        .tag-icon-glyph {
+        .dash-panel-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             font-size: 15px;
-            margin-right: 6px;
-            display: inline-block;
-            transition: transform 0.3s ease;
+            font-weight: 600;
         }
 
-        .tag:hover .tag-logo,
-        .tag:hover .tag-icon-glyph {
-            transform: scale(1.2) rotate(-8deg);
+        .dash-panel-title i {
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .dash-last-run {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #00ffaa;
+        }
+
+        .dash-history {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 18px;
+        }
+
+        .dash-square {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            cursor: default;
+            transition: transform 0.2s ease;
+        }
+
+        .dash-square:hover {
+            transform: scale(1.25);
+        }
+
+        .dash-square.dash-pass {
+            background: rgba(34, 197, 94, 0.35);
+            border: 1px solid rgba(34, 197, 94, 0.55);
+        }
+
+        .dash-square.dash-flaky {
+            background: rgba(234, 179, 8, 0.35);
+            border: 1px solid rgba(234, 179, 8, 0.55);
+        }
+
+        .dash-square.dash-fail {
+            background: rgba(239, 68, 68, 0.35);
+            border: 1px solid rgba(239, 68, 68, 0.55);
+        }
+
+        .dash-summary {
+            font-size: 13px;
+            color: var(--muted);
+            font-family: 'JetBrains Mono', monospace;
         }
 
         /* SKILLS MARQUEE */
@@ -1514,6 +1513,20 @@
             transition: background 0.25s, transform 0.25s;
             opacity: 0;
             transform: translateY(10px);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .project-tag img {
+            width: 12px;
+            height: 12px;
+            display: inline-block;
+        }
+
+        .project-tag i {
+            font-size: 13px;
+            display: inline-block;
         }
 
         .project-tag.tag-visible {
@@ -2191,6 +2204,12 @@
             border-color: rgba(2, 132, 199, 0.2);
         }
 
+        body.light-mode .hero-ci-badge {
+            color: #0f172a;
+            background: rgba(2, 132, 199, 0.08);
+            border-color: rgba(2, 132, 199, 0.2);
+        }
+
         body.light-mode .status-dot {
             background: #16a34a;
         }
@@ -2201,35 +2220,6 @@
         }
 
         body.light-mode .stat-card p {
-            color: #334155;
-        }
-
-        /* SKILLS */
-        body.light-mode .skill-card h3 {
-            color: #0f172a;
-        }
-
-        body.light-mode .skill-card-header i {
-            color: var(--primary);
-            background: rgba(2, 132, 199, 0.08);
-            border-color: rgba(2, 132, 199, 0.15);
-        }
-
-        body.light-mode .tag {
-            background: rgba(2, 132, 199, 0.1);
-            border-color: rgba(2, 132, 199, 0.25);
-            color: #0369a1;
-        }
-
-        body.light-mode .tag-purple {
-            background: rgba(124, 58, 237, 0.1);
-            border-color: rgba(124, 58, 237, 0.25);
-            color: #6d28d9;
-        }
-
-        body.light-mode .tag-neutral {
-            background: rgba(0, 0, 0, 0.05);
-            border-color: rgba(0, 0, 0, 0.1);
             color: #334155;
         }
 
@@ -2837,6 +2827,19 @@
             transform: translateY(20px);
         }
 
+        .mobile-menu .nav-test-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 20px;
+        }
+
+        .mobile-menu .nav-test-icon {
+            font-size: 20px;
+            color: #4ade80;
+        }
+
         .mobile-menu.open a {
             opacity: 1;
             transform: translateY(0);
@@ -3075,6 +3078,21 @@
             font-size: 14px;
         }
 
+        .hero-ci-badge {
+            width: fit-content;
+            margin-bottom: 18px;
+            padding: 7px 16px;
+            border-radius: 40px;
+            background: rgba(0, 255, 170, 0.08);
+            border: 1px solid rgba(0, 255, 170, 0.15);
+            color: #00ffaa;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            letter-spacing: 0.02em;
+        }
+
         .status-dot {
             width: 10px;
             height: 10px;
@@ -3129,25 +3147,80 @@
             pointer-events: none;
         }
 
-        .loader-logo {
-            font-size: 52px;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: loaderPulse 1.2s ease infinite alternate;
+        .boot-terminal {
+            width: 380px;
+            max-width: 86vw;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
-        @keyframes loaderPulse {
-            from {
-                opacity: 0.5;
-                transform: scale(0.96);
-            }
+        .boot-bar {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
 
-            to {
-                opacity: 1;
-                transform: scale(1.02);
-            }
+        .boot-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+        }
+
+        .boot-dot-red {
+            background: #ff5f56;
+        }
+
+        .boot-dot-yellow {
+            background: #ffbd2e;
+        }
+
+        .boot-dot-green {
+            background: #27c93f;
+        }
+
+        .boot-bar-title {
+            margin-left: 8px;
+            font-size: 11px;
+            color: var(--muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .boot-body {
+            padding: 16px 18px 20px;
+            min-height: 150px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12.5px;
+            line-height: 1.9;
+        }
+
+        .boot-line {
+            color: var(--muted);
+            white-space: pre-wrap;
+        }
+
+        .boot-line .boot-prompt {
+            color: var(--primary);
+            margin-right: 6px;
+        }
+
+        .boot-line.boot-ok {
+            color: #4ade80;
+        }
+
+        .boot-cursor {
+            display: inline-block;
+            width: 6px;
+            height: 12px;
+            background: var(--primary);
+            margin-left: 2px;
+            vertical-align: middle;
+            animation: termBlink 1s step-end infinite;
         }
 
         .loader-bar-track {
@@ -3181,37 +3254,27 @@
             }
         }
 
-        .loader-text {
-            font-size: 13px;
-            color: var(--muted);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            animation: loaderTextFade 1.6s ease forwards;
-        }
-
-        @keyframes loaderTextFade {
-
-            0%,
-            60% {
-                opacity: 0.4;
-            }
-
-            100% {
-                opacity: 0.8;
-            }
-        }
-
-        /* 14. SMOOTH SECTION REVEAL */
+        /* 14. SMOOTH SECTION REVEAL — DEPTH */
 
         section {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: perspective(1400px) rotateX(8deg) translateY(40px) scale(0.97);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         section.section-visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: perspective(1400px) rotateX(0deg) translateY(0) scale(1);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            section {
+                transform: none;
+            }
+
+            section.section-visible {
+                transform: none;
+            }
         }
 
         .hero {
@@ -3246,16 +3309,32 @@
             height: 260px;
             border-radius: 50%;
             overflow: hidden;
-            border: 3px solid rgba(255, 255, 255, 0.12);
+            border: 3px solid transparent;
+            background:
+                linear-gradient(var(--bg), var(--bg)) padding-box,
+                linear-gradient(135deg, var(--primary), var(--secondary)) border-box;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            animation: photoRingGlow 3.4s ease-in-out infinite;
+        }
+
+        @keyframes photoRingGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 245, 255, 0.25);
+            }
+
+            50% {
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 34px rgba(168, 85, 247, 0.35);
+            }
         }
 
         body.light-mode .hero-photo-ring {
-            border-color: rgba(0, 0, 0, 0.1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
         }
 
         .hero-photo-inner {
+            position: relative;
             width: 100%;
             height: 100%;
             border-radius: 50%;
@@ -3272,12 +3351,175 @@
             object-fit: cover;
             border-radius: 50%;
             display: block;
+            filter: grayscale(30%) contrast(1.08) brightness(0.94);
+        }
+
+        .hero-photo-inner::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: linear-gradient(160deg, rgba(0, 245, 255, 0.3), rgba(168, 85, 247, 0.2));
+            mix-blend-mode: color;
+            pointer-events: none;
+        }
+
+        .hero-photo-scan {
+            position: absolute;
+            left: 6%;
+            right: 6%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0.85;
+            mix-blend-mode: screen;
+            animation: photoScanSweep 4.2s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes photoScanSweep {
+
+            0%,
+            100% {
+                top: 8%;
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.85;
+            }
+
+            50% {
+                top: 88%;
+                opacity: 0.85;
+            }
+
+            60% {
+                opacity: 0;
+            }
+        }
+
+        .hero-photo-bracket {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--primary);
+            opacity: 0.75;
+        }
+
+        .hero-photo-bracket.tl {
+            top: -8px;
+            left: -8px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .hero-photo-bracket.tr {
+            top: -8px;
+            right: -8px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .hero-photo-bracket.bl {
+            bottom: -8px;
+            left: -8px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .hero-photo-bracket.br {
+            bottom: -8px;
+            right: -8px;
+            border-left: none;
+            border-top: none;
         }
 
         .hero-photo-placeholder {
             font-size: 80px;
             color: var(--primary);
             opacity: 0.5;
+        }
+
+        /* HERO LIVE TERMINAL */
+
+        .hero-terminal {
+            position: absolute;
+            bottom: -18px;
+            right: -50px;
+            width: 230px;
+            padding: 10px 14px 12px;
+            border-radius: 12px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-terminal-bar {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .hero-terminal-bar .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot-red {
+            background: #ff5f56;
+        }
+
+        .dot-yellow {
+            background: #ffbd2e;
+        }
+
+        .dot-green {
+            background: #27c93f;
+        }
+
+        .hero-terminal-body {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--primary);
+            line-height: 1.5;
+            min-height: 48px;
+            word-break: break-word;
+        }
+
+        .hero-terminal-prompt {
+            color: #4ade80;
+            margin-right: 6px;
+        }
+
+        .hero-terminal-cursor {
+            animation: termBlink 1s step-end infinite;
+        }
+
+        @keyframes termBlink {
+
+            0%,
+            50% {
+                opacity: 1;
+            }
+
+            51%,
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @media(max-width: 900px) {
+            .hero-terminal {
+                right: 10px;
+                bottom: -14px;
+                width: 190px;
+            }
+        }
+
+        @media(max-width: 480px) {
+            .hero-terminal {
+                display: none;
+            }
         }
 
         @media(max-width: 900px) {
@@ -3309,20 +3551,27 @@
 
 </head>
 
-</head>
-
 <body>
 
     <!-- PAGE LOADER -->
     <div id="pageLoader">
-        <div class="loader-logo">Tarun.</div>
+        <div class="boot-terminal">
+            <div class="boot-bar">
+                <span class="boot-dot boot-dot-red"></span>
+                <span class="boot-dot boot-dot-yellow"></span>
+                <span class="boot-dot boot-dot-green"></span>
+                <span class="boot-bar-title">tarun@sdet-environment</span>
+            </div>
+            <div class="boot-body" id="bootBody"></div>
+        </div>
         <div class="loader-bar-track">
             <div class="loader-bar-fill"></div>
         </div>
-        <div class="loader-text">Loading Portfolio...</div>
     </div>
 
     <!-- PARTICLE CANVAS -->
+    <div class="grid-floor" aria-hidden="true"></div>
+
     <canvas id="particleCanvas"></canvas>
 
     <!-- CUSTOM CURSOR -->
@@ -3340,11 +3589,11 @@
             <i class='bx bx-x'></i>
         </button>
 
-        <a href="#about" onclick="closeMobileMenu()">About</a>
-        <a href="#skills" onclick="closeMobileMenu()">Skills</a>
-        <a href="#experience" onclick="closeMobileMenu()">Experience</a>
-        <a href="#projects" onclick="closeMobileMenu()">Projects</a>
-        <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+        <a href="#about" class="nav-test-link" onclick="closeMobileMenu()"><i class='bx bx-check-circle nav-test-icon'></i><span>about.test.js</span></a>
+        <a href="#skills" class="nav-test-link" onclick="closeMobileMenu()"><i class='bx bx-check-circle nav-test-icon'></i><span>skills.test.js</span></a>
+        <a href="#experience" class="nav-test-link" onclick="closeMobileMenu()"><i class='bx bx-check-circle nav-test-icon'></i><span>experience.test.js</span></a>
+        <a href="#projects" class="nav-test-link" onclick="closeMobileMenu()"><i class='bx bx-check-circle nav-test-icon'></i><span>projects.test.js</span></a>
+        <a href="#contact" class="nav-test-link" onclick="closeMobileMenu()"><i class='bx bx-check-circle nav-test-icon'></i><span>contact.test.js</span></a>
 
     </div>
 
@@ -3355,11 +3604,11 @@
         <div class="logo">Tarun.</div>
 
         <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#experience">Experience</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
+            <a href="#about" class="nav-test-link"><i class='bx bx-check-circle nav-test-icon'></i><span>about.test.js</span></a>
+            <a href="#skills" class="nav-test-link"><i class='bx bx-check-circle nav-test-icon'></i><span>skills.test.js</span></a>
+            <a href="#experience" class="nav-test-link"><i class='bx bx-check-circle nav-test-icon'></i><span>experience.test.js</span></a>
+            <a href="#projects" class="nav-test-link"><i class='bx bx-check-circle nav-test-icon'></i><span>projects.test.js</span></a>
+            <a href="#contact" class="nav-test-link"><i class='bx bx-check-circle nav-test-icon'></i><span>contact.test.js</span></a>
         </div>
 
         <!-- HAMBURGER -->
@@ -3388,6 +3637,11 @@
 
             <!-- HERO CONTENT -->
             <div class="hero-content">
+
+                <div class="hero-ci-badge">
+                    <span class="status-dot"></span>
+                    All checks passing
+                </div>
 
                 <h1>
                     Hi, I'm
@@ -3432,6 +3686,24 @@
                         <img src="Blue-suite.png" alt="Tarun S R — SDET & QA Automation Engineer" loading="lazy"
                             decoding="async">
                         <!-- <i class='bx bx-user hero-photo-placeholder'></i> -->
+                        <div class="hero-photo-scan" aria-hidden="true"></div>
+                    </div>
+                </div>
+
+                <span class="hero-photo-bracket tl" aria-hidden="true"></span>
+                <span class="hero-photo-bracket tr" aria-hidden="true"></span>
+                <span class="hero-photo-bracket bl" aria-hidden="true"></span>
+                <span class="hero-photo-bracket br" aria-hidden="true"></span>
+
+                <div class="hero-terminal glass" aria-hidden="true">
+                    <div class="hero-terminal-bar">
+                        <span class="dot dot-red"></span>
+                        <span class="dot dot-yellow"></span>
+                        <span class="dot dot-green"></span>
+                    </div>
+                    <div class="hero-terminal-body">
+                        <span class="hero-terminal-prompt">$</span>
+                        <span id="terminalTyping"></span><span class="hero-terminal-cursor">|</span>
                     </div>
                 </div>
             </div>
@@ -3609,6 +3881,53 @@
 
     </section>
 
+    <!-- TEST DASHBOARD -->
+
+    <section id="dashboard">
+
+        <h2 data-aos="fade-up">Test Run Snapshot</h2>
+
+        <p class="skills-hint" data-aos="fade-up">A representative look at how automated runs typically perform across my frameworks</p>
+
+        <div class="dash-metrics" data-aos="fade-up">
+
+            <div class="glass dash-metric">
+                <h3 class="stat-number" data-target="1000" data-suffix="+">0</h3>
+                <p>Automated Tests</p>
+            </div>
+
+            <div class="glass dash-metric">
+                <h3 class="stat-number" data-target="96" data-suffix="%">0%</h3>
+                <p>Average Pass Rate</p>
+            </div>
+
+            <div class="glass dash-metric">
+                <h3 class="stat-number" data-target="3" data-suffix="m 20s">0</h3>
+                <p>Avg. Suite Duration</p>
+            </div>
+
+            <div class="glass dash-metric">
+                <h3 class="stat-number" data-target="42" data-suffix="">0</h3>
+                <p>Flaky Tests Diagnosed</p>
+            </div>
+
+        </div>
+
+        <div class="dash-panel glass" data-aos="fade-up">
+
+            <div class="dash-panel-header">
+                <span class="dash-panel-title"><i class='bx bx-git-commit'></i> Recent Build History</span>
+                <span class="dash-last-run"><span class="status-dot"></span> Last run passing</span>
+            </div>
+
+            <div class="dash-history" id="dashHistory"></div>
+
+            <p class="dash-summary" id="dashSummary">✓ 42/44 tests passed · 3m 12s · main branch</p>
+
+        </div>
+
+    </section>
+
     <!-- SKILLS -->
 
     <section id="skills">
@@ -3763,12 +4082,12 @@
                     <div class="project-block">
                         <div class="project-block-label"><i class='bx bx-chip'></i> Tech Stack</div>
                         <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Playwright</span>
-                            <span class="project-tag">Appium</span>
-                            <span class="project-tag">Pytest</span>
-                            <span class="project-tag">POM</span>
-                            <span class="project-tag">GitHub</span>
+                            <span class="project-tag"><img src="https://cdn.simpleicons.org/python/00F5FF" alt="" loading="lazy">Python</span>
+                            <span class="project-tag"><i class='bx bx-play-circle'></i>Playwright</span>
+                            <span class="project-tag"><img src="https://cdn.simpleicons.org/appium/00F5FF" alt="" loading="lazy">Appium</span>
+                            <span class="project-tag"><img src="https://cdn.simpleicons.org/pytest/00F5FF" alt="" loading="lazy">Pytest</span>
+                            <span class="project-tag"><i class='bx bx-layer'></i>POM</span>
+                            <span class="project-tag"><img src="https://cdn.simpleicons.org/github/00F5FF" alt="" loading="lazy">GitHub</span>
                         </div>
                     </div>
                 </div>
@@ -3804,11 +4123,11 @@
                     <div class="project-block">
                         <div class="project-block-label"><i class='bx bx-chip'></i> Tech Stack</div>
                         <div class="project-tags">
-                            <span class="project-tag">Postman</span>
-                            <span class="project-tag">REST APIs</span>
-                            <span class="project-tag">JSON</span>
-                            <span class="project-tag">Auth Testing</span>
-                            <span class="project-tag">JIRA</span>
+                            <span class="project-tag"><img src="https://cdn.simpleicons.org/postman/00F5FF" alt="" loading="lazy">Postman</span>
+                            <span class="project-tag"><i class='bx bx-transfer-alt'></i>REST APIs</span>
+                            <span class="project-tag"><img src="https://cdn.simpleicons.org/json/00F5FF" alt="" loading="lazy">JSON</span>
+                            <span class="project-tag"><i class='bx bx-lock-alt'></i>Auth Testing</span>
+                            <span class="project-tag"><img src="https://cdn.simpleicons.org/jira/00F5FF" alt="" loading="lazy">JIRA</span>
                         </div>
                     </div>
                 </div>
@@ -3844,12 +4163,12 @@
                     <div class="project-block">
                         <div class="project-block-label"><i class='bx bx-chip'></i> Tech Stack</div>
                         <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Selenium</span>
-                            <span class="project-tag">Playwright</span>
-                            <span class="project-tag">Pytest</span>
-                            <span class="project-tag">POM</span>
-                            <span class="project-tag">JIRA</span>
+                            <span class="project-tag"><img src="https://cdn.simpleicons.org/python/00F5FF" alt="" loading="lazy">Python</span>
+                            <span class="project-tag"><img src="https://cdn.simpleicons.org/selenium/00F5FF" alt="" loading="lazy">Selenium</span>
+                            <span class="project-tag"><i class='bx bx-play-circle'></i>Playwright</span>
+                            <span class="project-tag"><img src="https://cdn.simpleicons.org/pytest/00F5FF" alt="" loading="lazy">Pytest</span>
+                            <span class="project-tag"><i class='bx bx-layer'></i>POM</span>
+                            <span class="project-tag"><img src="https://cdn.simpleicons.org/jira/00F5FF" alt="" loading="lazy">JIRA</span>
                         </div>
                     </div>
                 </div>
@@ -3886,11 +4205,11 @@
                     <div class="project-block">
                         <div class="project-block-label"><i class='bx bx-chip'></i> Tech Stack</div>
                         <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Prefect</span>
-                            <span class="project-tag">SQL</span>
-                            <span class="project-tag">Data Pipelines</span>
-                            <span class="project-tag">Azure</span>
+                            <span class="project-tag"><img src="https://cdn.simpleicons.org/python/00F5FF" alt="" loading="lazy">Python</span>
+                            <span class="project-tag"><img src="https://cdn.simpleicons.org/prefect/00F5FF" alt="" loading="lazy">Prefect</span>
+                            <span class="project-tag"><i class='bx bx-data'></i>SQL</span>
+                            <span class="project-tag"><i class='bx bx-git-branch'></i>Data Pipelines</span>
+                            <span class="project-tag"><i class='bx bx-cloud'></i>Azure</span>
                         </div>
                     </div>
                 </div>
@@ -4237,6 +4556,25 @@
             cursorChar: '|'
         });
 
+        // Hero live terminal
+
+        if (document.getElementById('terminalTyping')) {
+            new Typed('#terminalTyping', {
+                strings: [
+                    'pytest -v test_login.py  →  ✓ 12 passed in 3.4s',
+                    'npx playwright test  →  ✓ 24 passed, 0 failed',
+                    'appium test --suite regression  →  ✓ 18 passed in 41s',
+                    'git commit -m "fix: flaky test"  →  ✓ pushed to main'
+                ],
+                typeSpeed: 28,
+                backSpeed: 12,
+                backDelay: 1800,
+                startDelay: 800,
+                loop: true,
+                showCursor: false
+            });
+        }
+
         // WHATSAPP FORM FUNCTIONALITY
 
         const whatsappForm = document.getElementById('whatsappForm');
@@ -4414,7 +4752,7 @@ ${message}`;
         const tagObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const tags = entry.target.querySelectorAll('.tag, .project-tag');
+                    const tags = entry.target.querySelectorAll('.project-tag');
                     tags.forEach((tag, i) => {
                         setTimeout(() => {
                             tag.classList.add('tag-visible');
@@ -4425,7 +4763,7 @@ ${message}`;
             });
         }, { threshold: 0.2 });
 
-        document.querySelectorAll('.skill-card, .project-card').forEach(card => {
+        document.querySelectorAll('.project-card').forEach(card => {
             tagObserver.observe(card);
         });
 
@@ -4451,28 +4789,11 @@ ${message}`;
         const themeIcon = document.getElementById('themeIcon');
         const themeLabel = document.getElementById('themeLabel');
 
-        // 14. TAG LOGO COLORS (theme-aware)
-
-        function updateTagLogos() {
-            const isLight = document.body.classList.contains('light-mode');
-            const colors = isLight
-                ? { tag: '0369a1', purple: '6d28d9', neutral: '334155' }
-                : { tag: '00F5FF', purple: 'c084fc', neutral: '94A3B8' };
-            document.querySelectorAll('.tag-logo[data-slug]').forEach(img => {
-                const parent = img.closest('.tag');
-                let color = colors.tag;
-                if (parent.classList.contains('tag-purple')) color = colors.purple;
-                else if (parent.classList.contains('tag-neutral')) color = colors.neutral;
-                img.src = `https://cdn.simpleicons.org/${img.dataset.slug}/${color}`;
-            });
-        }
-
         function toggleTheme() {
             const isLight = document.body.classList.toggle('light-mode');
             themeIcon.innerHTML = isLight ? "<i class='bx bx-sun'></i>" : "<i class='bx bx-moon'></i>";
             themeLabel.textContent = isLight ? 'Light' : 'Dark';
             localStorage.setItem('theme', isLight ? 'light' : 'dark');
-            updateTagLogos();
         }
 
         // Restore saved preference on load
@@ -4482,7 +4803,6 @@ ${message}`;
                 if (themeIcon) themeIcon.innerHTML = "<i class='bx bx-sun'></i>";
                 if (themeLabel) themeLabel.textContent = 'Light';
             }
-            updateTagLogos();
         });
 
     </script>
@@ -4493,12 +4813,71 @@ ${message}`;
         // ROUND 3 — LOADER + SECTION REVEAL
         // ================================
 
-        // 12. PAGE LOAD ANIMATION
+        // 12. PAGE LOAD ANIMATION — TERMINAL BOOT SEQUENCE
+
+        (function bootSequence() {
+            const body = document.getElementById('bootBody');
+            if (!body) return;
+
+            const steps = [
+                { cmd: 'connect --target=test-grid', ok: 'connected to test-grid' },
+                { cmd: 'load frameworks: playwright, selenium, appium', ok: 'frameworks ready' },
+                { cmd: 'link ai-assistants: chatgpt, copilot, claude', ok: 'assistants linked' },
+                { cmd: 'build portfolio.env', ok: 'environment ready' }
+            ];
+
+            let stepIndex = 0;
+
+            function typeLine(text, el, speed, done) {
+                let i = 0;
+                (function tick() {
+                    el.textContent = text.slice(0, i);
+                    i++;
+                    if (i <= text.length) {
+                        setTimeout(tick, speed);
+                    } else if (done) {
+                        done();
+                    }
+                })();
+            }
+
+            function runStep() {
+                if (stepIndex >= steps.length) {
+                    const doneLine = document.createElement('div');
+                    doneLine.className = 'boot-line';
+                    doneLine.innerHTML = '<span class="boot-prompt">$</span><span class="boot-cursor"></span>';
+                    body.appendChild(doneLine);
+                    return;
+                }
+                const step = steps[stepIndex];
+
+                const cmdLine = document.createElement('div');
+                cmdLine.className = 'boot-line';
+                const prompt = document.createElement('span');
+                prompt.className = 'boot-prompt';
+                prompt.textContent = '$';
+                const cmdText = document.createElement('span');
+                cmdLine.appendChild(prompt);
+                cmdLine.appendChild(cmdText);
+                body.appendChild(cmdLine);
+
+                typeLine(step.cmd, cmdText, 14, () => {
+                    const okLine = document.createElement('div');
+                    okLine.className = 'boot-line boot-ok';
+                    okLine.textContent = '✓ ' + step.ok;
+                    body.appendChild(okLine);
+                    stepIndex++;
+                    setTimeout(runStep, 180);
+                });
+            }
+
+            runStep();
+        })();
 
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('pageLoader').classList.add('loaded');
-            }, 1800);
+            }, 3000);
         });
 
         // 14. SMOOTH SECTION REVEAL
@@ -4555,6 +4934,29 @@ ${message}`;
 
         sections.forEach(s => navObserver.observe(s));
 
+        // 2B. TEST EXPLORER NAV — "run" animation on click
+
+        document.querySelectorAll('.nav-test-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                const target = document.querySelector(targetId);
+                if (!target) return;
+
+                e.preventDefault();
+
+                const icon = this.querySelector('.nav-test-icon');
+                const originalClass = icon.className;
+                icon.className = 'bx bx-loader-alt nav-test-icon';
+                this.classList.add('running');
+
+                setTimeout(() => {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    icon.className = originalClass;
+                    this.classList.remove('running');
+                }, 380);
+            });
+        });
+
         // 3. HAMBURGER MENU
 
         function toggleMobileMenu() {
@@ -4605,6 +5007,44 @@ ${message}`;
 
         const statsSection = document.querySelector('.stats');
         if (statsSection) statsSection.parentElement && statsObserver.observe(statsSection.parentElement);
+
+        // 4B. TEST DASHBOARD
+
+        const dashMetrics = document.querySelector('.dash-metrics');
+
+        if (dashMetrics) {
+            const dashObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.querySelectorAll('.stat-number').forEach(el => animateCounter(el));
+                        dashObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.4 });
+            dashObserver.observe(dashMetrics);
+        }
+
+        (function buildDashHistory() {
+            const el = document.getElementById('dashHistory');
+            if (!el) return;
+
+            const runs = [
+                ['pass', '2m 51s'], ['pass', '3m 02s'], ['flaky', '3m 40s'], ['pass', '2m 58s'],
+                ['pass', '3m 05s'], ['pass', '2m 49s'], ['fail', '1m 12s'], ['pass', '3m 11s'],
+                ['pass', '2m 55s'], ['pass', '3m 08s'], ['flaky', '3m 35s'], ['pass', '2m 52s'],
+                ['pass', '3m 00s'], ['pass', '2m 47s'], ['pass', '3m 09s'], ['fail', '0m 58s'],
+                ['pass', '3m 03s'], ['pass', '2m 56s'], ['flaky', '3m 22s'], ['pass', '2m 50s'],
+                ['pass', '3m 06s'], ['pass', '2m 59s'], ['pass', '3m 01s'], ['pass', '3m 12s']
+            ];
+
+            runs.forEach(([status, duration], i) => {
+                const sq = document.createElement('span');
+                sq.className = `dash-square dash-${status}`;
+                sq.title = `Run #${i + 1} · ${status} · ${duration}`;
+                el.appendChild(sq);
+            });
+        })();
+
 
         // Observe stats grid directly
         document.querySelectorAll('.stats').forEach(el => statsObserver.observe(el));
@@ -4702,7 +5142,7 @@ ${message}`;
         animateRing();
 
         // Hover effect on clickable elements
-        const hoverTargets = 'a, button, .contact-card, .about-flip-card, .skill-card, .project-card, .cert-card, .stat-card, .hamburger';
+        const hoverTargets = 'a, button, .contact-card, .about-flip-card, .project-card, .cert-card, .stat-card, .hamburger';
 
         document.querySelectorAll(hoverTargets).forEach(el => {
             el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
@@ -4731,7 +5171,7 @@ ${message}`;
 
             // Card tilt
             const MAX_TILT = 6;
-            const tiltCards = document.querySelectorAll('.skill-card, .project-card, .contact-card, .cert-card, .about-front');
+            const tiltCards = document.querySelectorAll('.project-card, .contact-card, .cert-card, .about-front');
 
             tiltCards.forEach(card => {
                 card.addEventListener('mousemove', (e) => {
