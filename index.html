@@ -68,7 +68,9 @@
 
     <!-- GOOGLE FONT -->
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
         rel="stylesheet">
 
     <!-- BOX ICONS -->
@@ -3236,7 +3238,7 @@
             width: 0%;
             background: linear-gradient(to right, var(--primary), var(--secondary));
             border-radius: 10px;
-            animation: loaderFill 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation: loaderFill 3.1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
             box-shadow: 0 0 12px rgba(0, 245, 255, 0.6);
         }
 
@@ -3252,6 +3254,13 @@
             100% {
                 width: 100%;
             }
+        }
+
+        .boot-skip-hint {
+            font-size: 11px;
+            color: var(--muted);
+            opacity: 0.55;
+            letter-spacing: 0.03em;
         }
 
         /* 14. SMOOTH SECTION REVEAL — DEPTH */
@@ -3452,6 +3461,28 @@
             box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
         }
 
+        /* HERO 3D CUBE */
+
+        .hero-cube3d {
+            position: absolute;
+            top: -46px;
+            left: -46px;
+            width: 130px;
+            height: 130px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .hero-cube3d canvas {
+            display: block;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-cube3d {
+                display: none;
+            }
+        }
+
         .hero-terminal-bar {
             display: flex;
             gap: 6px;
@@ -3567,6 +3598,7 @@
         <div class="loader-bar-track">
             <div class="loader-bar-fill"></div>
         </div>
+        <div class="boot-skip-hint">click or press any key to skip</div>
     </div>
 
     <!-- PARTICLE CANVAS -->
@@ -3683,7 +3715,7 @@
                             Replace the icon below with:
                             <img src="YOUR_PHOTO.jpg" alt="Tarun S R">
                         -->
-                        <img src="Blue-suite.png" alt="Tarun S R — SDET & QA Automation Engineer" loading="lazy"
+                        <img src="Blue-suite.png" alt="Tarun S R — SDET & QA Automation Engineer" fetchpriority="high"
                             decoding="async">
                         <!-- <i class='bx bx-user hero-photo-placeholder'></i> -->
                         <div class="hero-photo-scan" aria-hidden="true"></div>
@@ -3694,6 +3726,8 @@
                 <span class="hero-photo-bracket tr" aria-hidden="true"></span>
                 <span class="hero-photo-bracket bl" aria-hidden="true"></span>
                 <span class="hero-photo-bracket br" aria-hidden="true"></span>
+
+                <div id="qaCube3D" class="hero-cube3d" aria-hidden="true"></div>
 
                 <div class="hero-terminal glass" aria-hidden="true">
                     <div class="hero-terminal-bar">
@@ -4526,6 +4560,116 @@
 
     <script>
 
+        // HERO 3D STATUS CUBE — loaded only on desktop widths, since it's hidden
+        // by CSS on tablets/phones. Avoids ~600KB of unused download + parse cost
+        // for anyone who will never see it rendered.
+
+        (function initHeroCube() {
+            const container = document.getElementById('qaCube3D');
+            if (!container) return;
+            if (window.matchMedia('(max-width: 1024px)').matches) return;
+
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js';
+            script.onload = runCube;
+            document.body.appendChild(script);
+
+            function runCube() {
+                if (typeof THREE === 'undefined') return;
+
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            function makeFaceTexture(label, accent) {
+                const size = 256;
+                const canvas = document.createElement('canvas');
+                canvas.width = size;
+                canvas.height = size;
+                const ctx = canvas.getContext('2d');
+
+                ctx.fillStyle = 'rgba(5, 8, 22, 0.92)';
+                ctx.fillRect(0, 0, size, size);
+
+                ctx.strokeStyle = accent;
+                ctx.lineWidth = 6;
+                ctx.strokeRect(10, 10, size - 20, size - 20);
+
+                ctx.fillStyle = accent;
+                ctx.font = '700 34px "JetBrains Mono", monospace';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(label, size / 2, size / 2);
+
+                const texture = new THREE.CanvasTexture(canvas);
+                texture.needsUpdate = true;
+                return texture;
+            }
+
+            let renderer;
+            try {
+                renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            } catch (e) {
+                return;
+            }
+
+            const width = container.clientWidth || 130;
+            const height = container.clientHeight || 130;
+
+            renderer.setSize(width, height);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+            container.appendChild(renderer.domElement);
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+            camera.position.set(2.1, 2.1, 2.6);
+            camera.lookAt(0, 0, 0);
+
+            const faces = [
+                ['PASS', '#00F5FF'],
+                ['TEST', '#A855F7'],
+                ['CI/CD', '#00F5FF'],
+                ['BUILD', '#A855F7'],
+                ['RUN', '#00F5FF'],
+                ['DEPLOY', '#A855F7']
+            ];
+
+            const materials = faces.map(([label, accent]) =>
+                new THREE.MeshBasicMaterial({ map: makeFaceTexture(label, accent), transparent: true })
+            );
+
+            const geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+            const cube = new THREE.Mesh(geometry, materials);
+            scene.add(cube);
+
+            const edges = new THREE.EdgesGeometry(geometry);
+            const edgeLines = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x00f5ff, transparent: true, opacity: 0.5 }));
+            cube.add(edgeLines);
+
+            function resize() {
+                const w = container.clientWidth || 130;
+                const h = container.clientHeight || 130;
+                renderer.setSize(w, h);
+                camera.aspect = w / h;
+                camera.updateProjectionMatrix();
+            }
+
+            window.addEventListener('resize', resize);
+
+            function animate() {
+                requestAnimationFrame(animate);
+                cube.rotation.x += 0.004;
+                cube.rotation.y += 0.006;
+                renderer.render(scene, camera);
+            }
+
+            if (reducedMotion) {
+                cube.rotation.set(0.5, 0.6, 0);
+                renderer.render(scene, camera);
+            } else {
+                animate();
+            }
+            }
+        })();
+
         // AOS Animation
 
         AOS.init({
@@ -4817,7 +4961,8 @@ ${message}`;
 
         (function bootSequence() {
             const body = document.getElementById('bootBody');
-            if (!body) return;
+            const loader = document.getElementById('pageLoader');
+            if (!body || !loader) return;
 
             const steps = [
                 { cmd: 'connect --target=test-grid', ok: 'connected to test-grid' },
@@ -4827,6 +4972,17 @@ ${message}`;
             ];
 
             let stepIndex = 0;
+            let hidden = false;
+
+            function hideLoader() {
+                if (hidden) return;
+                hidden = true;
+                loader.classList.add('loaded');
+            }
+
+            // Let anyone skip the intro instantly — don't force it on repeat visitors or impatient recruiters
+            loader.addEventListener('click', hideLoader);
+            window.addEventListener('keydown', hideLoader, { once: true });
 
             function typeLine(text, el, speed, done) {
                 let i = 0;
@@ -4847,6 +5003,7 @@ ${message}`;
                     doneLine.className = 'boot-line';
                     doneLine.innerHTML = '<span class="boot-prompt">$</span><span class="boot-cursor"></span>';
                     body.appendChild(doneLine);
+                    setTimeout(hideLoader, 450);
                     return;
                 }
                 const step = steps[stepIndex];
@@ -4872,13 +5029,10 @@ ${message}`;
             }
 
             runStep();
-        })();
 
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('pageLoader').classList.add('loaded');
-            }, 3000);
-        });
+            // Hard safety cap — never block the site for more than 5s even if something stalls
+            setTimeout(hideLoader, 5000);
+        })();
 
         // 14. SMOOTH SECTION REVEAL
 
